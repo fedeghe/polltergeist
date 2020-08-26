@@ -1,0 +1,9 @@
+{
+    "EXE": [
+        "rm -rf sample",
+        "mkdir sample"
+    ],
+    "source/sample/index.html": "sample -plugins=malta-dev-srv[folder:\"sample\"]...malta-browser-refresh[files:\"*\"] -options=placeholderMode:\"func\"",
+    "source/sample/style.less": "sample -plugins=malta-less -options=placeholderMode:\"func\"",
+    "source/sample/index.js": "sample -options=placeholderMode:\"func\""
+}

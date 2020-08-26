@@ -1,7 +1,8 @@
 {
     "EXE": [
-        "rm -rf dist",
-        "mkdir dist"
+        "rm -rf dist sample",
+        "mkdir dist sample"
     ],
-    "source/index.js": "dist"
+    "source/polltergeist.js": "dist -options=placeholderMode:\"func\"",
+    "source/sample/require.json": true
 }
