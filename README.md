@@ -1,0 +1,2 @@
+# polltergeist
+client poll master
