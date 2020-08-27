@@ -4,7 +4,7 @@
         "mkdir -p sample/media",
         "cp source/sample/media/*.jpg sample/media/"
     ],
-    "source/sample/index.html": "sample -plugins=malta-dev-srv[folder:\"sample\"]...malta-browser-refresh[files:\"relative\"] -options=placeholderMode:\"func\"",
     "source/sample/style.less": "sample -plugins=malta-less -options=placeholderMode:\"func\"",
-    "source/sample/index.js": "sample -options=placeholderMode:\"func\""
+    "source/sample/index.js": "sample -options=placeholderMode:\"func\"",
+    "source/sample/index.html": "sample -plugins=malta-browser-refresh[files:\"relative\"]...malta-dev-srv[folder:\"sample\"] -options=placeholderMode:\"func\""
 }
