@@ -1,0 +1,28 @@
+html {
+  font-family: verdana;
+  height: 100%;
+}
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #222;
+  color: #777;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100vh;
+}
+.cli {
+  flex: 1;
+  border-right: 10px solid rgba(0, 255, 0, 0.2);
+}
+.cli.active {
+  border-right: 10px solid green;
+}
+.srv {
+  flex: 1;
+  border-left: 10px solid rgba(255, 0, 0, 0.2);
+}
+.srv.active {
+  border-left: 10px solid red;
+}

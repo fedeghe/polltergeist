@@ -1377,10 +1377,10 @@ malta-restify@^1.0.3:
     restify-errors "^8.0.1"
     restify-plugins "^1.6.0"
 
-malta@^4.1.19:
-  version "4.1.19"
-  resolved "https://registry.yarnpkg.com/malta/-/malta-4.1.19.tgz#0213af7afc66245f75688dd8a931e9f550e7dd8f"
-  integrity sha512-EQT2oG1cKzhPJNBEYvw4UJjY8UdejVpf5WucwarOENKB4hT1A2pD/OzAvX/mlQ9c+OwWndmqjmUHYxvrKBc8kA==
+malta@^4.1.20:
+  version "4.1.20"
+  resolved "https://registry.yarnpkg.com/malta/-/malta-4.1.20.tgz#5aa70b51dd8b4c14d32c3e1a75d566d8840723cc"
+  integrity sha512-XwhKkwIHih+vHKgiHrFj4fZPrZhWfH+viLFtfj1GFyWg4mgnsJrNfkKRzvnxX3oGO31G741H65PK92uK8tuFdw==
 
 media-typer@0.3.0:
   version "0.3.0"

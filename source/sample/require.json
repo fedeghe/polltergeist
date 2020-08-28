@@ -1,10 +1,11 @@
 {
     "EXE": [
         "rm -rf sample",
-        "mkdir -p sample/media",
+        "mkdir -p sample/media sample/js/lib sample/css",
         "cp source/sample/media/*.jpg sample/media/"
     ],
-    "source/sample/style.less": "sample -plugins=malta-less -options=placeholderMode:\"func\"",
-    "source/sample/index.js": "sample -options=placeholderMode:\"func\"",
+    "source/sample/style.less": "sample/css -plugins=malta-less -options=placeholderMode:\"func\"",
+    "source/sample/index.js": "sample/js -options=placeholderMode:\"func\"",
+    "source/polltergeist.js": "sample/js/lib -options=placeholderMode:\"func\"",
     "source/sample/index.html": "sample -plugins=malta-browser-refresh[files:\"relative\"]...malta-dev-srv[folder:\"sample\"] -options=placeholderMode:\"func\""
 }

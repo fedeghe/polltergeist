@@ -10,7 +10,7 @@
         "buildev": "malta source/buildev.json"
     },
     "devDependencies": {
-        "malta": "^4.1.19",
+        "malta": "^4.1.20",
         "malta-apollo-srv": "^1.0.18",
         "malta-browser-refresh": "^1.2.9",
         "malta-dev-srv": "^1.1.7",
