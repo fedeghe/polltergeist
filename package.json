@@ -5,6 +5,7 @@
     "main": "dist/polltergeist.js",
     "repository": "https://github.com/fedeghe/polltergeist.git",
     "author": "fedeghe <fedeghe@gmail.com>",
+    "myName": "Federico Ghedina",
     "license": "MIT",
     "scripts": {
         "buildev": "malta source/buildev.json"
