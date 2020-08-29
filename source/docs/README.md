@@ -1,5 +1,4 @@
-maltaF('style.html')
-## Polltergeist
+# ༺ P o l l t e r g e i s t ༻
 ---
 ![Polltergeist](https://github.com/fedeghe/polltergeist/blob/master/sample/media/poltergeist_eventbrite.jpg?raw=true)
 
@@ -23,3 +22,4 @@ Client side
 
 
 
+༺ ᚗᚌ ༻

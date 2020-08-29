@@ -1,40 +1,4 @@
-<!--
-[Malta] style.html
--->
-<style>
-    body {
-        background-color: black;
-        color: white
-    }
-
-
-    h2 {
-        font-size: 40px;
-        letter-spacing: 5px;
-        ;
-        background-image: repeating-linear-gradient(45deg, violet, indigo, blue, green, yellow, orange, red, violet);
-        text-align: center;
-        background-size: 800% 800%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: rainbow 3s linear infinite;
-    }
-
-    @keyframes rainbow {
-        0% {
-            background-position: 0% 50%
-        }
-
-        50% {
-            background-position: 100% 25%
-        }
-
-        100% {
-            background-position: 0% 50%
-        }
-    }
-</style>
-## Polltergeist
+# ༺ P o l l t e r g e i s t ༻
 ---
 ![Polltergeist](https://github.com/fedeghe/polltergeist/blob/master/sample/media/poltergeist_eventbrite.jpg?raw=true)
 
@@ -58,3 +22,4 @@ Client side
 
 
 
+༺ ᚗᚌ ༻
