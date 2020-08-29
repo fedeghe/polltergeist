@@ -1,0 +1,7 @@
+{
+    "EXE": [
+        "rm -rf sample/srv",
+        "mkdir -p sample/srv"
+    ],
+    "source/sample/srv/index.js": "sample/srv -options=placeholderMode:\"func\""
+}

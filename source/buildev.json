@@ -1,10 +1,12 @@
 {
     "EXE": [
         "rm -rf dist sample",
-        "mkdir dist sample"
+        "mkdir -p dist/cli dist/srv sample"
     ],
-    "source/polltergeist.js": "dist -options=placeholderMode:\"func\"",
+    "source/cli/index.js": "dist/cli -options=placeholderMode:\"func\"",
+    "source/srv/index.js": "dist/srv -options=placeholderMode:\"func\"",
     "source/docs/README.md": ". -options=placeholderMode:\"func\"",
     "source/docs/LICENSE": ". -options=placeholderMode:\"func\"",
-    "source/sample/require.json": true
+    "source/sample/cli/require.json": true,
+    "source/sample/srv/require.json": true
 }
