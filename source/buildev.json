@@ -4,5 +4,6 @@
         "mkdir dist sample"
     ],
     "source/polltergeist.js": "dist -options=placeholderMode:\"func\"",
+    "source/docs/README.md": ". -options=placeholderMode:\"func\"",
     "source/sample/require.json": true
 }
