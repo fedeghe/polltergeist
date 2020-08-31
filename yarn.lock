@@ -1367,20 +1367,20 @@ malta-less@^1.0.11:
   dependencies:
     less "^3.8.1"
 
-malta-restify@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/malta-restify/-/malta-restify-1.0.3.tgz#e66c97cc0f0a684242d41a83466e313df7deeb18"
-  integrity sha512-BcSMU5VZp5UnAcoKo67zq/UWg0SP9zA32Ct3bFTErJDUMLEVKWADCWb/IXWBw0BFt1+gkLiZv0ex9yTPjiWl4Q==
+malta-restify@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/malta-restify/-/malta-restify-1.0.5.tgz#07fccd3b9cfb7a2a20bd4d077951826bc680ab07"
+  integrity sha512-QQxuHswPiPmG/tDxr3UfqPfbCcbQpQhcNkcPYBSJ5zwz9CZDyd3nYNicbbQ2iZb1tX+ecVR/KdxfPYjK25ybvA==
   dependencies:
     restify "^8.4.0"
     restify-cors-middleware "^1.1.1"
     restify-errors "^8.0.1"
     restify-plugins "^1.6.0"
 
-malta@^4.1.21:
-  version "4.1.21"
-  resolved "https://registry.yarnpkg.com/malta/-/malta-4.1.21.tgz#fe0ccc808499127605492d4849b7def6a164b89a"
-  integrity sha512-/uuFZ+zF/AIq/wwwlKDvWJMyv5ZRSpa3mGxfv9cesoA6riI3dSJGro3WbCKXdGsHKJH1cnOV2MgBmtk9IQFXeg==
+malta@^4.1.22:
+  version "4.1.22"
+  resolved "https://registry.yarnpkg.com/malta/-/malta-4.1.22.tgz#6e1835026a68994240e2d54332ab0598d6c152f1"
+  integrity sha512-bb78VzFXzYqCcaG8NXBu4MnMerzNxvN5bmo3jhiFJY6GG0hI0UnZk4Hlti4nyACPm6cx4ZCB1ppao37Ljrgivw==
 
 media-typer@0.3.0:
   version "0.3.0"

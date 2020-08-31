@@ -8,5 +8,6 @@
     "source/docs/README.md": ". -options=placeholderMode:\"func\"",
     "source/docs/LICENSE": ". -options=placeholderMode:\"func\"",
     "source/sample/cli/require.json": true,
-    "source/sample/srv/require.json": true
+    "source/sample/srv/require.json": true,
+    "source/sample/api/require.json": true
 }

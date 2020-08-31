@@ -11,7 +11,7 @@
         "buildev": "malta source/buildev.json"
     },
     "devDependencies": {
-        "malta": "^4.1.21",
+        "malta": "^4.1.22",
         "malta-apollo-srv": "^1.0.18",
         "malta-browser-refresh": "^1.2.9",
         "malta-dev-srv": "^1.1.7",
@@ -19,6 +19,6 @@
         "malta-js-toolkit": "^1.0.15",
         "malta-js-uglify": "^1.0.13",
         "malta-less": "^1.0.11",
-        "malta-restify": "^1.0.3"
+        "malta-restify": "^1.0.5"
     }
 }

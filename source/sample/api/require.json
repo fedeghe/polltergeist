@@ -1,0 +1,9 @@
+{
+    "EXE": [
+        "rm -rf sample/api",
+        "mkdir -p sample/api/data",
+        "cp source/sample/api/data/* sample/api/data/"
+    ],
+    "source/sample/api/restify.json": "sample/api -options=placeholderMode:\"func\"",
+    "source/sample/api/index.js": "sample/api -plugins=malta-restify[port:3002,endpoints:'restify.json',folder:'sample/api'] -options=placeholderMode:\"func\""
+}

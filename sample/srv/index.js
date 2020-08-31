@@ -1,1 +1,1 @@
-console.log('server started')
+console.log('Main server started')
