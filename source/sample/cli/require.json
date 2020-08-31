@@ -7,5 +7,7 @@
     "source/sample/cli/style.less": "sample/cli/css -plugins=malta-less -options=placeholderMode:\"func\"",
     "source/sample/cli/index.js": "sample/cli/js -options=placeholderMode:\"func\"",
     "source/cli/index.js": "sample/cli/js/polltergeist -options=placeholderMode:\"func\"",
+    "source/cli/ww.js": "sample/cli/js/polltergeist -options=placeholderMode:\"func\"",
+    "source/cli/utils.js": "sample/cli/js/polltergeist -options=placeholderMode:\"func\"",
     "source/sample/cli/index.html": "sample/cli -plugins=malta-browser-refresh[files:\"relative\"]...malta-dev-srv[folder:\"sample/cli\"] -options=placeholderMode:\"func\""
 }

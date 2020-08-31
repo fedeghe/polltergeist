@@ -6,7 +6,7 @@ console.log(new Date);
 
 var p = Polltergeist.getInstance()
 console.log(p)
-p.io.head('http://127.0.0.1:3002/person/1');
+// p.io.head('http://127.0.0.1:3002/person/1');
 // p.io.head('http://127.0.0.1:3002/persons');
 
 // p.io.put('http://127.0.0.1:3002/person/2', {
