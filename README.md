@@ -22,3 +22,11 @@ Client side
 - [ ] each _heart-beat-request_ must be authenticated using all needed `{topic: token}` pairs  
 
 ༺ ᚗᚌ ༻
+
+
+
+---
+### Basic flow playground
+run `yarn start:server` to start the pollteregeist node server  
+run `yarn buildev`, visit _http://127.0.0.1:3001_, check console 
+
