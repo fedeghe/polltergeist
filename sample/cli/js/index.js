@@ -13,12 +13,18 @@ var p = Polltergeist.getInstance({
             }
         }
     }
+}, function (e) {
+    console.log('context', this)
+    console.log('cli', e)
 })
-console.log(p)
-p.requestPerson(1, function (d) {
-    console.log('got back cli: ', +new Date, d)
-    console.log('got back cli data: ', +new Date, d.data)
-})
+
+p.requestPerson(1)
+p.requestPerson(2)
+// p.requestPerson(2, function (d) {
+//     console.log(+new Date)
+//     console.log('got back cli2: ', +new Date, d)
+//     console.log('got back cli data2: ', +new Date, d.data)
+// })
 // p.io.head('http://127.0.0.1:3002/person/1');
 // p.io.head('http://127.0.0.1:3002/persons');
 

@@ -99,16 +99,19 @@ var Polltergeist = (function () {
     
     
     
-        function Polltergeist(config) {
+        function Polltergeist(config, handler) {
+            var self = this;
             this.config = config;
-            this.init()
+            // this.handler = handler;
+            webWorker.onmessage = function () {handler.apply(self, [].concat(arguments))};
+            // this.init()
         }
         Polltergeist.prototype.init = function () {
-    
+            // webWorker.onmessage = this.handler
         };
-        Polltergeist.prototype.requestPerson = function (n, cb) {
+        Polltergeist.prototype.requestPerson = function (n) {
             webWorker.postMessage(encode({number: n}));
-            webWorker.onmessage = cb
+            
         };
         Polltergeist.prototype.subscribe = function (channel, topic, handler) {
             
@@ -120,9 +123,9 @@ var Polltergeist = (function () {
     
 
     return {
-        getInstance: function (config) {
+        getInstance: function (config, handler) {
             if (instance) return instance;
-            instance = new Polltergeist(config)
+            instance = new Polltergeist(config, handler)
             return instance;
         }
     };
