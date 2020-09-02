@@ -11,26 +11,109 @@ var Polltergeist = (function () {
             return JSON.stringify(d)
         }
         function decode(d) {
-            return JSON.parse(d.data)
+            return d ? JSON.parse(d) : {}
         }
+        function decodeData(d) {
+            return d && 'data' in d ? JSON.parse(d.data) : {}
+        }
+        /*
+        [Malta] io.js
+        */
+        // IO
+        var io = (function () {
+            function getXHR(options) {
+                var xhr = new XMLHttpRequest();
+                if (options && 'on' in options) {
+                    'readystatechange' in options.on
+                         && xhr.addEventListener('readystatechange', options.on.readystatechange);
+                    'loadstart' in options.on
+                         && xhr.addEventListener('loadstart', options.on.loadstart);
+                    'load' in options.on
+                         && xhr.addEventListener('load', options.on.load);
+                    'loadend' in options.on
+                         && xhr.addEventListener('loadend', options.on.loadend);
+                    'progress' in options.on
+                         && xhr.addEventListener('progress', options.on.progress);
+                    'error' in options.on
+                         && xhr.addEventListener('error', options.on.error);
+                    'abort' in options.on
+                         && xhr.addEventListener('abort', options.on.abort);
+                    'timeout' in options.on
+                         && xhr.addEventListener('timeout', options.on.timeout);
+                }
+                return xhr;
+            }
+            function setHeaders(xhr, options) {
+                if (options && 'headers' in options) {
+                    for (var k in options.headers) {
+                        if (options.headers.hasOwnProperty(k))
+                            xhr.setRequestHeaders(k, options.headers[i])
+                    }
+                }
+                return xhr;
+            }
+            return {
+                get: function (what, options) {
+                    var xhr = getXHR(options);
+                    xhr.open('GET', what, false);
+                    xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+                    xhr = setHeaders(xhr, options);
+                    xhr.send();
+                },
+                post: function (where, payload, options) {
+                    var xhr = getXHR(options);
+                    xhr.open('POST', where, false);
+                    xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+                    xhr = setHeaders(xhr, options);
+                    xhr.send(JSON.stringify(payload));
+                },
+                delete: function (what, options) {
+                    var xhr = getXHR(options);
+                    xhr.open('DELETE', what, false);
+                    xhr = setHeaders(xhr, options);
+                    xhr.send();
+                },
+                put: function (where, payload, options) {
+                    var xhr = getXHR(options);
+                    xhr.open('PUT', where, false);
+                    xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+                    xhr = setHeaders(xhr, options);
+                    xhr.send(JSON.stringify(payload));
+                },
+                head: function (what, options) {
+                    var xhr = getXHR(options);
+                    xhr.open('HEAD', what, false);
+                    xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+                    xhr = setHeaders(xhr, options);
+                    xhr.send();
+                },
+                connect: function () {},
+                options: function () {},
+                trace: function () {},
+                patch: function () {},
+            }
+        })();
     
     
         var webWorker = new Worker('js/polltergeist/ww.js');
-        webWorker.postMessage(encode({name: 'Federico'}));
-        webWorker.onmessage = function (d) {
-            console.log('back', decode(d));
-        };
+    
     
     
         function Polltergeist(config) {
             this.config = config;
+            this.init()
         }
-        Polltergeist.prototype.start = function () {
-            console.log('let`s start there');
+        Polltergeist.prototype.init = function () {
+    
+        };
+        Polltergeist.prototype.requestPerson = function (n, cb) {
+            webWorker.postMessage(encode({number: n}));
+            webWorker.onmessage = cb
         };
         Polltergeist.prototype.subscribe = function (channel, topic, handler) {
             
         };
+        Polltergeist.prototype.io = io;
     
         return Polltergeist
     })();

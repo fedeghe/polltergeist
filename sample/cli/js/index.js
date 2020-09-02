@@ -4,8 +4,21 @@ console.log('powered by ᚗᚌ');
 console.log(new Date);
 
 
-var p = Polltergeist.getInstance()
+var p = Polltergeist.getInstance({
+    info: {
+        persons: {
+            getOne: {
+                ep: 'http://127.0.0.1:3002/person/:id',
+                params: ['id']
+            }
+        }
+    }
+})
 console.log(p)
+p.requestPerson(1, function (d) {
+    console.log('got back cli: ', +new Date, d)
+    console.log('got back cli data: ', +new Date, d.data)
+})
 // p.io.head('http://127.0.0.1:3002/person/1');
 // p.io.head('http://127.0.0.1:3002/persons');
 

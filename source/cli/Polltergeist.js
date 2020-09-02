@@ -1,23 +1,27 @@
 var Polltergeist = (function () {
     maltaF('utils.js')
+    maltaF('io.js')
 
 
     var webWorker = new Worker('js/polltergeist/ww.js');
-    webWorker.postMessage(encode({name: 'Federico'}));
-    webWorker.onmessage = function (d) {
-        console.log('back', decode(d));
-    };
+
 
 
     function Polltergeist(config) {
         this.config = config;
+        this.init()
     }
-    Polltergeist.prototype.start = function () {
-        console.log('let`s start there');
+    Polltergeist.prototype.init = function () {
+
+    };
+    Polltergeist.prototype.requestPerson = function (n, cb) {
+        webWorker.postMessage(encode({number: n}));
+        webWorker.onmessage = cb
     };
     Polltergeist.prototype.subscribe = function (channel, topic, handler) {
         
     };
+    Polltergeist.prototype.io = io;
 
     return Polltergeist
 })();

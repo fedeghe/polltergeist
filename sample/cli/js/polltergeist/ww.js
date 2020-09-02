@@ -37,34 +37,34 @@ var io = (function () {
     return {
         get: function (what, options) {
             var xhr = getXHR(options);
-            xhr.open('GET', what, true);
+            xhr.open('GET', what, false);
             xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
             xhr = setHeaders(xhr, options);
             xhr.send();
         },
         post: function (where, payload, options) {
             var xhr = getXHR(options);
-            xhr.open('POST', where, true);
+            xhr.open('POST', where, false);
             xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
             xhr = setHeaders(xhr, options);
             xhr.send(JSON.stringify(payload));
         },
         delete: function (what, options) {
             var xhr = getXHR(options);
-            xhr.open('DELETE', what, true);
+            xhr.open('DELETE', what, false);
             xhr = setHeaders(xhr, options);
             xhr.send();
         },
         put: function (where, payload, options) {
             var xhr = getXHR(options);
-            xhr.open('PUT', where, true);
+            xhr.open('PUT', where, false);
             xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
             xhr = setHeaders(xhr, options);
             xhr.send(JSON.stringify(payload));
         },
         head: function (what, options) {
             var xhr = getXHR(options);
-            xhr.open('HEAD', what, true);
+            xhr.open('HEAD', what, false);
             xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
             xhr = setHeaders(xhr, options);
             xhr.send();
@@ -77,13 +77,23 @@ var io = (function () {
 })();
 
 importScripts('utils.js');
+var ww = self
 
-self.onmessage = function (data) {
-    var d = decode(data)
-    console.log('decoded', d)
-    self.postMessage(
-        encode({salute: `Hello ${d.name}`})
-    )
+ww.onmessage = function (data) {
+    var d = decodeData(data)
+    // console.log('decoded', d);
+    io.post('http://127.0.0.1:5034', d, {
+        on: {
+            readystatechange: function () {
+                if (this.readyState == 4 && this.responseText)
+                    console.log('back to the ww', +new Date, this.responseText)
+                    ww.postMessage(
+                        decode(this.responseText)
+                    )
+                }
+            }
+        }
+    );
 }
 self.onerror = function (e) {
     console.log('Error')

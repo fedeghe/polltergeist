@@ -4,7 +4,7 @@
         "mkdir -p dist/cli dist/srv sample"
     ],
     "source/cli/index.js": "dist/cli -options=placeholderMode:\"func\"",
-    "source/srv/index.js": "dist/srv -options=placeholderMode:\"func\"",
+    "source/srv/index.js": "dist/srv -options=placeholderMode:\"func\" -vars=source/vars.json",
     "source/docs/README.md": ". -options=placeholderMode:\"func\"",
     "source/docs/LICENSE": ". -options=placeholderMode:\"func\"",
     "source/sample/cli/require.json": true,

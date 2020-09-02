@@ -34,34 +34,34 @@ var io = (function () {
     return {
         get: function (what, options) {
             var xhr = getXHR(options);
-            xhr.open('GET', what, true);
+            xhr.open('GET', what, false);
             xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
             xhr = setHeaders(xhr, options);
             xhr.send();
         },
         post: function (where, payload, options) {
             var xhr = getXHR(options);
-            xhr.open('POST', where, true);
+            xhr.open('POST', where, false);
             xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
             xhr = setHeaders(xhr, options);
             xhr.send(JSON.stringify(payload));
         },
         delete: function (what, options) {
             var xhr = getXHR(options);
-            xhr.open('DELETE', what, true);
+            xhr.open('DELETE', what, false);
             xhr = setHeaders(xhr, options);
             xhr.send();
         },
         put: function (where, payload, options) {
             var xhr = getXHR(options);
-            xhr.open('PUT', where, true);
+            xhr.open('PUT', where, false);
             xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
             xhr = setHeaders(xhr, options);
             xhr.send(JSON.stringify(payload));
         },
         head: function (what, options) {
             var xhr = getXHR(options);
-            xhr.open('HEAD', what, true);
+            xhr.open('HEAD', what, false);
             xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
             xhr = setHeaders(xhr, options);
             xhr.send();
