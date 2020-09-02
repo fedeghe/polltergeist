@@ -1,15 +1,17 @@
-/*
-[Malta] Polltergeist.js
-*/
+const config = require('./config.json')
 
-var debug = true;
+const debug = true;
+const error = true;
 
-var express = require('express'),
+const express = require('express'),
     cors = require('cors'),
     app = express(),
     http = require('http'),
     bodyParser = require("body-parser"),  
     port = maltaV('port');
+
+const log = (...args) => debug && console.log(...args)
+const err = (...args) => error && console.log('[ERROR]', ...args)
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,28 +19,40 @@ app.use(bodyParser.json());
 
 const handleRequest = (req, res, next) => {
     res.setHeader('Content-Type', 'application/json');
-    const { body: {number} } = req;
-    // console.log(req.body)
+    const { body} = req;
+    // log(body)
+    // res.send(JSON.stringify({name: 'Fede', data: body})).end();
 
-    // res.send({hi:'federicoG'}).end();
+
+    /// for the moemnt is ok the wrong ep
     http.get(
-        'http://127.0.0.1:3002/person/'+ number,
+        'http://127.0.0.1:3002/person/1',
         xres => {
             let rawData = '';
             xres.on('data', (chunk) => { rawData += chunk; });
             xres.on('end', () => {
                 try {
                     const parsedData = JSON.parse(rawData);
-                    console.log('REST is replying: ', parsedData);
-                    res.send(JSON.stringify(parsedData)).end();
+                    log('REST is replying: ', {
+                        ...parsedData,
+                        data: body
+                    });
+                    
+                    res.send(JSON.stringify({
+                        ...parsedData,
+                        data: body
+                    })).end();
+                    // console.log({name: 'Fede', data: body})
+                    
+
                 } catch (e) {
-                    console.error(e.message);
+                    err(e.message);
                 }
             });
         }
     );
     req.on('error', e => {
-        console.log('ERROR: ' + e.message);
+        log('ERROR: ' + e.message);
     });
     // next();
 };
@@ -46,5 +60,5 @@ const handleRequest = (req, res, next) => {
 
 app.post('/', handleRequest)
 app.listen(port, () => {
-    console.log(`Example app listening @ http://localhost:${port}`)
+    log(`Example app listening @ http://localhost:${port}`)
 });

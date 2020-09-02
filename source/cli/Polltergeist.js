@@ -11,8 +11,15 @@ var Polltergeist = (function () {
         var self = this;
         this.config = config;
         // this.handler = handler;
-        webWorker.onmessage = function () {handler.apply(self, [].concat(arguments))};
+        webWorker.onmessage = handler
         // this.init()
+    }
+    Polltergeist.prototype.synch = function (channel, topics) {
+        webWorker.postMessage(encode({
+            type: 'synch',
+            channel: channel,
+            topics: topics
+        }));
     }
     Polltergeist.prototype.init = function () {
         // webWorker.onmessage = this.handler

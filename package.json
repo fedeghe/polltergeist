@@ -9,7 +9,7 @@
     "license": "MIT",
     "scripts": {
         "buildev": "malta source/buildev.json",
-        "start:server": "node dist/srv/index.js"
+        "start:server": "node sample/srv/index.js"
     },
     "devDependencies": {
         "malta": "^4.1.22",

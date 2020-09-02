@@ -1,0 +1,8 @@
+{
+    "channel1": {
+        "perzon": {
+            "endpoint": "http://127.0.0.1:3002/person/:id",
+            "id": "id"
+        }
+    }
+}

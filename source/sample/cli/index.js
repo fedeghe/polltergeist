@@ -3,23 +3,30 @@ console.log('powered by ᚗᚌ');
 
 console.log(new Date);
 
+var Handlers = {}
 
-var p = Polltergeist.getInstance({
-    info: {
-        persons: {
-            getOne: {
-                ep: 'http://127.0.0.1:3002/person/:id',
-                params: ['id']
-            }
-        }
-    }
-}, function (e) {
-    console.log('context', this)
-    console.log('cli', e)
+var p = Polltergeist.getInstance({}, function (e) {
+    var data = JSON.parse(e.data)
+    console.log('cli')
+    console.log(data)
+    Handlers[data.data.channel1.perzon.consume](data)
 })
 
-p.requestPerson(1)
-p.requestPerson(2)
+var person = document.getElementById('person');
+
+p.synch('channel1', {
+    perzon: {
+        params: {id: 1},
+        consume: 'handler1'
+    }
+})
+
+Handlers.handler1 = function(d) {
+    person.innerHTML = d.name
+}
+
+// p.requestPerson(1)
+// p.requestPerson(2)
 // p.requestPerson(2, function (d) {
 //     console.log(+new Date)
 //     console.log('got back cli2: ', +new Date, d)

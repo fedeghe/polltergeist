@@ -1,7 +1,8 @@
 {
     "EXE": [
         "rm -rf sample/srv",
-        "mkdir -p sample/srv"
+        "mkdir -p sample/srv",
+        "cp source/srv/config.json sample/srv"
     ],
-    "source/sample/srv/index.js": "sample/srv -options=placeholderMode:\"func\""
+    "source/srv/index.js": "sample/srv -options=placeholderMode:\"func\" -vars=source/vars.json"
 }
