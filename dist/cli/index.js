@@ -124,14 +124,24 @@ var Polltergeist = (function () {
                 type: 'setPolltergeistServerUrl',
                 url : self.config.url
             }));
+    
+            self.config.pollingInterval
+            && webWorker.postMessage(encode({
+                type: 'setPollingInterval',
+                interval : self.config.pollingInterval
+            }));
         }
         Polltergeist.prototype.handleData = function (data) {
-            var self = this,
-                handlers = this.handlers;
-    
+            var handlers = this.handlers;
+            // console.log('data', data)
             for (var i = 0, l = data.length, handlerName; i < l; i++) {
-                handlerName = data[i].handler
-                handlerName in handlers && handlers[handlerName](data[i])
+                handlerName = data[i].handler;
+                console.log('==========')
+                console.log(data)
+                console.log(handlerName)
+                handlerName !== '___NO_UPDATES___'
+                    && handlerName in handlers
+                    && handlers[handlerName](data[i]);
             }
             webWorker.postMessage(encode({
                 type: 'updateClientDigests',

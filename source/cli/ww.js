@@ -4,9 +4,9 @@ maltaF('PollManager.js')
 importScripts('utils.js');
 
 
-var ww = self
-
-var PolltergeistServerUrl = null
+var ww = self,
+    PolltergeistServerUrl = null,
+    loop = setInterval(poll, maltaV('client.pollingInterval'));
 
 function poll() {
     if (!PolltergeistServerUrl) {
@@ -24,51 +24,35 @@ function poll() {
         }
     })
 }
-
-
-var loop = setInterval(poll, maltaV('client.pollingInterval'))
-
-
-
+function resetInterval(interval) {
+    clearInterval(loop);
+    loop = setInterval(poll, interval);
+}
 
 ww.onmessage = function (data) {
-    var request = decodeData(data)
-    switch (request.type) {
+    var payload = decodeData(data);
+    switch (payload.type) {
         case 'synch':
             PollManager.add(
-                request.channel,
-                request.token,
-                request.topics
+                payload.channel,
+                payload.token,
+                payload.topics
             );
             break;
         case 'setPolltergeistServerUrl':
-            PolltergeistServerUrl = request.url;
+            PolltergeistServerUrl = payload.url;
+            poll();
             break;
         case 'updateClientDigests': 
             PollManager.updateDigests(data);
             break;
+        case 'setPollingInterval' : 
+            resetInterval(payload.interval)
+            break;
 
     }
-
-    
-    // io.post('http://127.0.0.1:5034', d, {
-    //     on: {
-    //         readystatechange: function () {
-    //             if (this.readyState == 4 && this.responseText)
-    //                 console.log('back to the ww', +new Date, this.responseText)
-    //                 ww.postMessage(
-    //                     decode(this.responseText)
-    //                 )
-    //             }
-    //         }
-    //     }
-    // );
 }
 self.onerror = function (e) {
     console.log('Error')
     console.log(e)
 }
-
-
-
-// poll();

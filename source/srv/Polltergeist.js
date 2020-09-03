@@ -82,6 +82,7 @@ const handleRequest = (req, res) => {
                                                 solve(clientDigest === dataDigest ? {
                                                     channel,
                                                     topic,
+                                                    digest: clientDigest,
                                                     payload : {},
                                                     handler: '___NO_UPDATES___'
                                                 } : {
@@ -102,6 +103,7 @@ const handleRequest = (req, res) => {
                             Promise.solve({
                                 channel,
                                 topic,
+                                digest: clientDigest,
                                 payload : {},
                                 handler: '___INVALID_TOKEN___'
                             })
