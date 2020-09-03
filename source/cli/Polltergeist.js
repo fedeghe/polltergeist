@@ -40,13 +40,12 @@ var Polltergeist = (function () {
         }));
     }
     Polltergeist.prototype.handleData = function (data) {
-        var handlers = this.handlers;
-        // console.log('data', data)
-        for (var i = 0, l = data.length, handlerName; i < l; i++) {
+        var handlers = this.handlers,
+            i = -1,
+            l = data.length,
+            handlerName;
+        while (++i < l) {
             handlerName = data[i].handler;
-            console.log('==========')
-            console.log(data)
-            console.log(handlerName)
             handlerName !== '___NO_UPDATES___'
                 && handlerName in handlers
                 && handlers[handlerName](data[i]);
