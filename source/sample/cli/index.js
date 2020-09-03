@@ -3,27 +3,43 @@ console.log('powered by ᚗᚌ');
 
 console.log(new Date);
 
-var Handlers = {}
 
-var p = Polltergeist.getInstance({}, function (e) {
-    var data = JSON.parse(e.data)
-    console.log('cli')
-    console.log(data)
-    Handlers[data.data.channel1.perzon.consume](data)
-})
+var p = Polltergeist.getInstance({
+        url: "maltaV('server.endpoint')"
+    }, {
+        handler1: function(d) {
+            // console.log('cli ', d)
+            person.innerHTML = d.payload.name
+        },
+        handler2: function(d) {
+            // console.log('cli ', d)
+            car.innerHTML = d.payload.model
+        }
+    });
 
-var person = document.getElementById('person');
+var person = document.getElementById('person'),
+    car = document.getElementById('car');
 
 p.synch('channel1', {
-    perzon: {
-        params: {id: 1},
-        consume: 'handler1'
+    token: 'AAABBB111222',
+    topics: {
+        persons: {
+            params: {id: 1},
+            handler: 'handler1'
+        },
+    }
+})
+p.synch('channel2', {
+    token: 'CCCDDD333444',
+    topics: {
+        cars: {
+            params: {id: 1},
+            handler: 'handler2'
+        }
     }
 })
 
-Handlers.handler1 = function(d) {
-    person.innerHTML = d.name
-}
+
 
 // p.requestPerson(1)
 // p.requestPerson(2)

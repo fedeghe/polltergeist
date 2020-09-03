@@ -8,6 +8,15 @@
             "ep": "/person/:id",
             "source": "data/persons.json",
             "key": "id"
+        },
+        {
+            "ep": "/cars",
+            "source": "data/cars.json"
+        },
+        {
+            "ep": "/car/:id",
+            "source": "data/cars.json",
+            "key": "id"
         }
     ],
     "put": [

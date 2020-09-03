@@ -1,8 +1,24 @@
 {
     "channel1": {
-        "perzon": {
-            "endpoint": "http://127.0.0.1:3002/person/:id",
-            "id": "id"
+        "token": "AAABBB111222",
+        "topics": {
+            "persons": {
+                "endpoint": "http://127.0.0.1:3002/person/:id",
+                "params": [
+                    "id"
+                ]
+            }
+        }
+    },
+    "channel2": {
+        "token": "CCCDDD333444",
+        "topics": {
+            "cars": {
+                "endpoint": "http://127.0.0.1:3002/car/:id",
+                "params": [
+                    "id"
+                ]
+            }
         }
     }
 }

@@ -1,0 +1,12 @@
+[
+    {
+        "id": 1,
+        "brand": "Audi",
+        "model": "A4 tdi 20 Avants"
+    },
+    {
+        "id": 2,
+        "brand": "VW",
+        "model": "Golf GTI"
+    }
+]

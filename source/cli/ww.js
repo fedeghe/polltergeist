@@ -2,31 +2,52 @@ maltaF('io.js')
 maltaF('PollManager.js')
 
 importScripts('utils.js');
+
+
 var ww = self
 
-var loop = setInterval(function () {
+var PolltergeistServerUrl = null
+
+function poll() {
+    if (!PolltergeistServerUrl) {
+        clearInterval(loop)
+        throw '[ERROR] No Polltergeist server url set\npass it as `{url:"<url here>" }`\nas first parameter calling `Polltergeist.getInstance`';
+    }
     var polls = PollManager.getAll();
-    io.post('http://127.0.0.1:5034', polls, {
+    io.post(PolltergeistServerUrl, polls, {
         on: {
             readystatechange: function () {
                 if (this.readyState == 4 && this.responseText) {
                     ww.postMessage(this.responseText)
-                    console.log('DATA', this.responseText)
                 }
             }
         }
     })
-}, 3000)
+}
+
+
+var loop = setInterval(poll, maltaV('client.pollingInterval'))
+
+
+
 
 ww.onmessage = function (data) {
-    var d = decodeData(data)
-    switch (d.type) {
+    var request = decodeData(data)
+    switch (request.type) {
         case 'synch':
             PollManager.add(
-                d.channel,
-                d.topics
+                request.channel,
+                request.token,
+                request.topics
             );
             break;
+        case 'setPolltergeistServerUrl':
+            PolltergeistServerUrl = request.url;
+            break;
+        case 'updateClientDigests': 
+            PollManager.updateDigests(data);
+            break;
+
     }
 
     
@@ -47,3 +68,7 @@ self.onerror = function (e) {
     console.log('Error')
     console.log(e)
 }
+
+
+
+// poll();

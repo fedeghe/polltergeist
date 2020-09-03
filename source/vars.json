@@ -1,3 +1,9 @@
 {
-    "port": 5034
+    "client": {
+        "pollingInterval": 3E3
+    },
+    "server": {
+        "endpoint": "http://127.0.0.1:5034",
+        "port": 5034
+    }
 }

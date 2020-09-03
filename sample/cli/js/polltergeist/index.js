@@ -99,31 +99,55 @@ var Polltergeist = (function () {
     
     
     
-        function Polltergeist(config, handler) {
+        function Polltergeist(config, handlers) {
             var self = this;
             this.config = config;
+            this.handlers = {
+                // allow the client script to override that
+                ___INVALID_TOKEN___: function (data) {
+                    console.log('Invalid token');
+                    console.log(data);
+                } ,
+                
+                ...handlers,
+                // this one cannot be overridden ,cause at least the first
+                // time the clientDigest needs to be updated
+                ___NO_UPDATES___: function (data) {
+                    console.log('Nothing to update');
+                },
+            };
             // this.handler = handler;
-            webWorker.onmessage = handler
-            // this.init()
+            webWorker.onmessage = function (e) {
+                self.handleData(JSON.parse(e.data))
+            } 
+            webWorker.postMessage(encode({
+                type: 'setPolltergeistServerUrl',
+                url : self.config.url
+            }));
         }
-        Polltergeist.prototype.synch = function (channel, topics) {
+        Polltergeist.prototype.handleData = function (data) {
+            var self = this,
+                handlers = this.handlers;
+    
+            for (var i = 0, l = data.length, handlerName; i < l; i++) {
+                handlerName = data[i].handler
+                handlerName in handlers && handlers[handlerName](data[i])
+            }
+            webWorker.postMessage(encode({
+                type: 'updateClientDigests',
+                data: data
+            }));
+            
+        }
+        Polltergeist.prototype.synch = function (channel, request) {
             webWorker.postMessage(encode({
                 type: 'synch',
                 channel: channel,
-                topics: topics
+                token: request.token,
+                topics: request.topics
             }));
         }
-        Polltergeist.prototype.init = function () {
-            // webWorker.onmessage = this.handler
-        };
-        Polltergeist.prototype.requestPerson = function (n) {
-            webWorker.postMessage(encode({number: n}));
-            
-        };
-        Polltergeist.prototype.subscribe = function (channel, topic, handler) {
-            
-        };
-        Polltergeist.prototype.io = io;
+        // Polltergeist.prototype.io = io;
     
         return Polltergeist
     })();

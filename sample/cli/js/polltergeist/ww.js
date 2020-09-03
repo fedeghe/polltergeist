@@ -81,48 +81,79 @@ var io = (function () {
 var PollManager = (function () {
     var polls = {};
     return {
-        add: function (channel, topics) {
-            console.log('adding', channel, topics)
-            if (!(channel in polls)) polls[channel] = {};
+        add: function (channel, token, topics) {
+            if (!(channel in polls)) polls[channel] = {
+                token: token,
+                topics: {}
+            };
             for (var topic in topics) {
-                if (!(topic in polls[channel])) {
-                    polls[channel][topic] = {
+                if (!(topic in polls[channel].topics)) {
+                    polls[channel].topics[topic] = {
                         params: topics[topic].params,
-                        consume: topics[topic].consume
+                        handler: topics[topic].handler,
+                        digest: ''
                     };
                 }
             }
         },
+        updateDigests: function (d){
+            var digest = JSON.parse(d.data)
+            for (var i = 0, l = digest.data.length, dgst; i < l; i++) {
+                dgst= digest.data[i]
+                polls[dgst.channel].topics[dgst.topic].digest = dgst.digest;
+            }
+        }, 
         getAll : function () {return polls;}
     }; 
 })();
 
 importScripts('utils.js');
+
+
 var ww = self
 
-var loop = setInterval(function () {
+var PolltergeistServerUrl = null
+
+function poll() {
+    if (!PolltergeistServerUrl) {
+        clearInterval(loop)
+        throw '[ERROR] No Polltergeist server url set\npass it as `{url:"<url here>" }`\nas first parameter calling `Polltergeist.getInstance`';
+    }
     var polls = PollManager.getAll();
-    io.post('http://127.0.0.1:5034', polls, {
+    io.post(PolltergeistServerUrl, polls, {
         on: {
             readystatechange: function () {
                 if (this.readyState == 4 && this.responseText) {
                     ww.postMessage(this.responseText)
-                    console.log('DATA', this.responseText)
                 }
             }
         }
     })
-}, 3000)
+}
+
+
+var loop = setInterval(poll, 3000)
+
+
+
 
 ww.onmessage = function (data) {
-    var d = decodeData(data)
-    switch (d.type) {
+    var request = decodeData(data)
+    switch (request.type) {
         case 'synch':
             PollManager.add(
-                d.channel,
-                d.topics
+                request.channel,
+                request.token,
+                request.topics
             );
             break;
+        case 'setPolltergeistServerUrl':
+            PolltergeistServerUrl = request.url;
+            break;
+        case 'updateClientDigests': 
+            PollManager.updateDigests(data);
+            break;
+
     }
 
     
@@ -143,3 +174,7 @@ self.onerror = function (e) {
     console.log('Error')
     console.log(e)
 }
+
+
+
+// poll();
