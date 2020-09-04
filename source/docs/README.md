@@ -23,4 +23,8 @@ Client side
 - [x] each _request_ must be authenticated via token (this is a security assumption on the srv, easily tunable)
 - [x] the configuration must include: rest endpoint url; mandatory rest endpoint token; optional polling interval
 
+
+Limitations... at least those I can see
+- server can only hit GET endpoint (for the moment)
+- this is limited to one rest server
 ༺ ᚗᚌ ༻
