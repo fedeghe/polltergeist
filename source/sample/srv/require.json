@@ -3,6 +3,6 @@
         "rm -rf sample/srv",
         "mkdir -p sample/srv"
     ],
-    "source/srv/index.js": "sample/srv -options=placeholderMode:\"func\" -vars=source/vars.json",
-    "source/srv/config.json": "sample/srv -options=placeholderMode:\"func\" -vars=source/vars.json"
+    "source/sample/srv/config.json": "sample/srv -options=placeholderMode:\"func\" -vars=source/vars.json",
+    "source/srv/index.js": "sample/srv -options=placeholderMode:\"func\" -vars=source/vars.json"
 }

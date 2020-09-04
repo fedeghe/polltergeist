@@ -3,7 +3,6 @@ maltaF('PollManager.js')
 
 importScripts('utils.js');
 
-
 var ww = self,
     PolltergeistServerUrl = null,
     loop = setInterval(poll, maltaV('client.pollingInterval'));
