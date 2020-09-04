@@ -119,7 +119,11 @@ var Polltergeist = (function () {
             // this.handler = handler;
             webWorker.onmessage = function (e) {
                 self.handleData(JSON.parse(e.data))
-            } 
+            }
+            webWorker.postMessage(encode({
+                type: 'setRestToken',
+                token : self.config.token
+            })); 
             webWorker.postMessage(encode({
                 type: 'setPolltergeistServerUrl',
                 url : self.config.url

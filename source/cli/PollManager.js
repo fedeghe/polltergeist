@@ -1,8 +1,10 @@
 var PollManager = (function () {
-    var polls = {};
+    var polls = {},
+        restToken = '';
     return {
         add: function (channel, token, topics) {
             if (!(channel in polls)) polls[channel] = {
+                restToken: restToken,
                 token: token,
                 topics: {}
             };
@@ -19,10 +21,13 @@ var PollManager = (function () {
         updateDigests: function (d){
             var digest = JSON.parse(d.data)
             for (var i = 0, l = digest.data.length, dgst; i < l; i++) {
-                dgst= digest.data[i]
+                dgst = digest.data[i]
                 polls[dgst.channel].topics[dgst.topic].digest = dgst.digest;
             }
         }, 
+        setRestToken: function (token) {
+            restToken = token;
+        },
         getAll : function () {return polls;}
     }; 
 })();

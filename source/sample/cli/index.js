@@ -4,7 +4,8 @@ console.log('powered by ᚗᚌ');
 var person = document.getElementById('person'),
     car = document.getElementById('car'),
     p = Polltergeist.getInstance({
-            url: "maltaV('server.endpoint')"
+            url: "maltaV('server.endpoint')",
+            token: "federico.ghedina"
             //, pollingInterval: 1000 // DEFAUlT is 3000
         }, {
             handler1: function(data) {

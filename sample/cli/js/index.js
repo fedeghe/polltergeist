@@ -4,7 +4,8 @@ console.log('powered by ᚗᚌ');
 var person = document.getElementById('person'),
     car = document.getElementById('car'),
     p = Polltergeist.getInstance({
-            url: "http://127.0.0.1:5034"
+            url: "http://127.0.0.1:5034",
+            token: "federico.ghedina"
             //, pollingInterval: 1000 // DEFAUlT is 3000
         }, {
             handler1: function(data) {

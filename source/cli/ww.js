@@ -42,11 +42,14 @@ ww.onmessage = function (data) {
             PolltergeistServerUrl = payload.url;
             poll();
             break;
-        case 'updateClientDigests': 
+        case 'updateClientDigests':
             PollManager.updateDigests(data);
             break;
-        case 'setPollingInterval' : 
-            resetInterval(payload.interval)
+        case 'setPollingInterval':
+            resetInterval(payload.interval);
+            break;
+        case 'setRestToken':
+            PollManager.setRestToken(payload.token);
             break;
 
     }

@@ -11,6 +11,7 @@ const express = require('express'),
     xxhashjs = require("xxhashjs"),
     app = express(),
     http = require('http'),
+    https = require('https'),
     bodyParser = require("body-parser"),  
     port = 5034;
 
@@ -48,14 +49,13 @@ const handleRequest = (req, res) => {
                     topic in config[channel].topics
                 ) {
                     
-                    let ep = config[channel].topics[topic].endpoint
-                    const params = config[channel].topics[topic].params
-                    const clientDigest = body[channel].topics[topic].digest
+                    let ep = config[channel].topics[topic].endpoint;
+                    const params = config[channel].topics[topic].params,
+                        clientDigest = body[channel].topics[topic].digest;
                     // if the config expects parameters
                     // must be in the body 
                     // and must be replaced in the ep
                     if (params && params.length) {
-
                         // replace all params in the enpoint
                         params.filter(
                             param =>
@@ -66,50 +66,52 @@ const handleRequest = (req, res) => {
                             ep = ep.replace(`:${param}`, body[channel].topics[topic].params[param])
                         })
 
-                        // return a promise that solves in the xhr responseHandler
-                        // in case of valid token, or solve straigth
+                        // return a promise that solves in the xhr responseHandler in case of valid token,
+                        // or solve straigth with empty payload allowing the cli to be aware
                         tAcc.push(
-                            tokenValid ? 
-                            
-                            new Promise((solve, reject) => 
-                                http.get(
-                                    ep,
-                                    xres => {
-                                        let rawData = '';
-                                        xres.on('data', (chunk) => { rawData += chunk; });
-                                        xres.on('end', () => {
-                                            try {
-                                                const parsedData = JSON.parse(rawData);
-                                                const dataDigest = digest(parsedData)
-                                                
-                                                solve(clientDigest === dataDigest ? {
-                                                    channel,
-                                                    topic,
-                                                    digest: clientDigest,
-                                                    payload : {},
-                                                    handler: '___NO_UPDATES___'
-                                                } : {
-                                                    channel,
-                                                    topic,
-                                                    digest: dataDigest,
-                                                    payload : {...parsedData},
-                                                    handler: body[channel].topics[topic].handler
-                                                });
-                                            } catch (e) {
-                                                err(e.message);
-                                            }
-                                        });
-                                    }
+                            tokenValid ?        
+                                new Promise((solve, reject) => 
+                                    http.get(
+                                        ep,
+                                        {headers: {
+                                            Authorization: body[channel].restToken
+                                        }},
+                                        xres => {
+                                            let rawData = '';
+                                            xres.on('data', (chunk) => { rawData += chunk; });
+                                            xres.on('end', () => {
+                                                try {
+                                                    const parsedData = JSON.parse(rawData);
+                                                    const dataDigest = digest(parsedData)
+                                                    
+                                                    solve(clientDigest === dataDigest ? {
+                                                        channel,
+                                                        topic,
+                                                        digest: clientDigest,
+                                                        payload : {},
+                                                        handler: '___NO_UPDATES___'
+                                                    } : {
+                                                        channel,
+                                                        topic,
+                                                        digest: dataDigest,
+                                                        payload : {...parsedData},
+                                                        handler: body[channel].topics[topic].handler
+                                                    });
+                                                } catch (e) {
+                                                    err(e.message);
+                                                }
+                                            });
+                                        }
+                                    )
                                 )
-                            )
-                            :
-                            Promise.solve({
-                                channel,
-                                topic,
-                                digest: clientDigest,
-                                payload : {},
-                                handler: '___INVALID_TOKEN___'
-                            })
+                                :
+                                Promise.solve({
+                                    channel,
+                                    topic,
+                                    digest: clientDigest,
+                                    payload : {},
+                                    handler: '___INVALID_TOKEN___'
+                                })
                         )
                     }
                 }
