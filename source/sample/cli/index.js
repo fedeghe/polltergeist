@@ -8,7 +8,7 @@ var person = document.getElementById('person'),
     p = Polltergeist.getInstance({
             url: "maltaV('server.endpoint')",
             token: "federico.ghedina"
-            //, pollingInterval: 1000 // DEFAUlT is 3000
+            , pollingInterval: 1000 // DEFAUlT is 3000
         }, {
             handler1: function(data) {
                 person.innerHTML = input.value = data.payload.name
