@@ -27,4 +27,14 @@ Client side
 Limitations (TODOS)... at least those I can see
 - server can only hit GET endpoint (for the moment)
 - this is limited to one rest server
+
+
+---
+### Run basic sample
+- run `yarn start:server` to start the pollteregeist node server  
+- run `yarn buildev`, visit _http://127.0.0.1:3001_, check console 
+- change `sample/api/data/persons.json` ...either `source/sample/api/data/persons.json` if you did not stopped the previous live build 
+
+---
+
 ༺ ᚗᚌ ༻
