@@ -27,7 +27,6 @@ app.use(bodyParser.json());
 const handleRequest = (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     const { body } = req;
-    // log(JSON.stringify(body, null, 2))
     const all = Object.keys(body).reduce((acc, channel) => {
         const {token, topics} = body[channel];
 
