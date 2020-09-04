@@ -68,7 +68,7 @@ var Polltergeist = (function () {
             topics: request.topics
         }));
     }
-    // Polltergeist.prototype.io = io;
+    Polltergeist.prototype.io = io;
 
     return Polltergeist
 })();

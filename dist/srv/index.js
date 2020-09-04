@@ -128,7 +128,7 @@ const handleRequest = (req, res) => {
 
     Promise.all(all)
         .then(results => 
-            console.log(results) || res.send(JSON.stringify(results)).end()
+            res.send(JSON.stringify(results)).end()
         );
 
     req.on('error', e => {
