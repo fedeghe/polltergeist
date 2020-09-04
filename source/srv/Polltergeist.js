@@ -46,7 +46,8 @@ const handleRequest = (req, res) => {
                 ) {
                     
                     let ep = config[channel].topics[topic].endpoint;
-                    const params = config[channel].topics[topic].params,
+                    const proto = ep.match(/^https.*/) ? https : http,
+                        params = config[channel].topics[topic].params,
                         clientDigest = body[channel].topics[topic].digest;
                     // if the config expects parameters
                     // must be in the body 
@@ -66,40 +67,44 @@ const handleRequest = (req, res) => {
                         // or solve straigth with empty payload allowing the cli to be aware
                         tAcc.push(
                             tokenValid ?        
-                                new Promise((solve, reject) => 
-                                    http.get(
-                                        ep,
-                                        {headers: {
-                                            Authorization: body[channel].restToken
-                                        }},
-                                        xres => {
-                                            let rawData = '';
-                                            xres.on('data', (chunk) => { rawData += chunk; });
-                                            xres.on('end', () => {
-                                                try {
-                                                    const parsedData = JSON.parse(rawData);
-                                                    const dataDigest = digest(parsedData)
-                                                    
-                                                    solve(clientDigest === dataDigest ? {
-                                                        channel,
-                                                        topic,
-                                                        digest: clientDigest,
-                                                        payload : {},
-                                                        handler: '___NO_UPDATES___'
-                                                    } : {
-                                                        channel,
-                                                        topic,
-                                                        digest: dataDigest,
-                                                        payload : {...parsedData},
-                                                        handler: body[channel].topics[topic].handler
-                                                    });
-                                                } catch (e) {
-                                                    err(e.message);
-                                                }
-                                            });
-                                        }
-                                    )
-                                )
+                                new Promise((solve, reject) => {
+                                    try {
+                                        proto.get(
+                                            ep,
+                                            {headers: {
+                                                Authorization: body[channel].restToken
+                                            }},
+                                            xres => {
+                                                let rawData = '';
+                                                xres.on('data', (chunk) => { rawData += chunk; });
+                                                xres.on('end', () => {
+                                                    try {
+                                                        const parsedData = JSON.parse(rawData);
+                                                        const dataDigest = digest(parsedData)
+                                                        
+                                                        solve(clientDigest === dataDigest ? {
+                                                            channel,
+                                                            topic,
+                                                            digest: clientDigest,
+                                                            payload : {},
+                                                            handler: '___NO_UPDATES___'
+                                                        } : {
+                                                            channel,
+                                                            topic,
+                                                            digest: dataDigest,
+                                                            payload : {...parsedData},
+                                                            handler: body[channel].topics[topic].handler
+                                                        });
+                                                    } catch (e) {
+                                                        err(e.message);
+                                                    }
+                                                });
+                                            }
+                                        )
+                                    } catch(e) {
+                                        console.log(e)
+                                    }
+                                })
                                 :
                                 Promise.solve({
                                     channel,
@@ -120,7 +125,7 @@ const handleRequest = (req, res) => {
 
     Promise.all(all)
         .then(results => 
-            res.send(JSON.stringify(results)).end()
+            console.log(results) || res.send(JSON.stringify(results)).end()
         );
 
     req.on('error', e => {
