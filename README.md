@@ -24,7 +24,7 @@ Client side
 - [x] the configuration must include: rest endpoint url; mandatory rest endpoint token; optional polling interval
 
 
-Limitations... at least those I can see
+Limitations (TODOS)... at least those I can see
 - server can only hit GET endpoint (for the moment)
 - this is limited to one rest server
 ༺ ᚗᚌ ༻
