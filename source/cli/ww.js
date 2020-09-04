@@ -37,10 +37,11 @@ ww.onmessage = function (data) {
                 payload.token,
                 payload.topics
             );
+            // retrieve first data asap
+            poll();
             break;
         case 'setPolltergeistServerUrl':
             PolltergeistServerUrl = payload.url;
-            poll();
             break;
         case 'updateClientDigests':
             PollManager.updateDigests(data);

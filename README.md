@@ -1,6 +1,6 @@
 # ༺ P o l l t e r g e i s t ༻
 ---
-![Polltergeist](https://github.com/fedeghe/polltergeist/blob/master/sample/cli/media/poltergeist_eventbrite.jpg?raw=true)
+![Polltergeist](https://github.com/fedeghe/polltergeist/blob/master/source/sample/cli/media/poltergeist_eventbrite.jpg?raw=true)
 
 ---
 
@@ -35,6 +35,9 @@ Limitations (TODOS)... at least those I can see
 - run `yarn start:server` to start the pollteregeist node server , let it go 
 - run `yarn buildev` and let it go, visit _http://127.0.0.1:3001_, check console 
 - change `sample/api/data/persons.json` ...either `source/sample/api/data/persons.json` if you did not stopped the previous live build 
+
+![wtf](https://github.com/fedeghe/polltergeist/blob/master/source/docs/record.gif?raw=true)
+
 
 ---
 

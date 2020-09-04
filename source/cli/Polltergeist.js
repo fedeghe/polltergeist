@@ -24,7 +24,10 @@ var Polltergeist = (function () {
                 console.log('Nothing to update');
             },
         };
-        // this.handler = handler;
+        webWorker.postMessage(encode({
+            type: 'setPolltergeistServerUrl',
+            url : self.config.url
+        }));
         webWorker.onmessage = function (e) {
             self.handleData(JSON.parse(e.data))
         }
@@ -32,10 +35,6 @@ var Polltergeist = (function () {
             type: 'setRestToken',
             token : self.config.token
         })); 
-        webWorker.postMessage(encode({
-            type: 'setPolltergeistServerUrl',
-            url : self.config.url
-        }));
 
         self.config.pollingInterval
         && webWorker.postMessage(encode({
