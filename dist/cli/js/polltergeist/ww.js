@@ -75,6 +75,7 @@ var io = (function () {
         patch: function () {},
     }
 })();
+
 /*
 [Malta] PollManager.js
 */
@@ -163,7 +164,6 @@ ww.onmessage = function (data) {
         case 'setRestToken':
             PollManager.setRestToken(payload.token);
             break;
-
     }
 }
 self.onerror = function (e) {

@@ -1,12 +1,12 @@
 var Polltergeist = (function () {
     var instance;
-    maltaF('Polltergeist.js')
+    maltaF('PolltergeistClient.js')
     
 
     return {
         getInstance: function (config, handler) {
             if (instance) return instance;
-            instance = new Polltergeist(config, handler)
+            instance = new PolltergeistClient(config, handler)
             return instance;
         }
     };

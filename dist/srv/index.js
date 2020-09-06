@@ -1,6 +1,3 @@
-/*
-[Malta] Polltergeist.js
-*/
 const config = require('./config.json')
 
 const debug = true;
@@ -82,8 +79,8 @@ const handleRequest = (req, res) => {
                                                 xres.on('data', (chunk) => { rawData += chunk; });
                                                 xres.on('end', () => {
                                                     try {
-                                                        const parsedData = JSON.parse(rawData);
-                                                        const dataDigest = digest(parsedData)
+                                                        const parsedData = JSON.parse(rawData),
+                                                            dataDigest = digest(parsedData);
                                                         
                                                         solve(clientDigest === dataDigest ? {
                                                             channel,
@@ -105,7 +102,13 @@ const handleRequest = (req, res) => {
                                             }
                                         )
                                     } catch(e) {
-                                        console.log(e)
+                                        reject({
+                                            channel,
+                                            topic,
+                                            digest: clientDigest,
+                                            payload : {},
+                                            handler: '___NO_UPDATES___'
+                                        })
                                     }
                                 })
                                 :

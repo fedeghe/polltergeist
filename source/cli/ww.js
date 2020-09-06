@@ -1,4 +1,5 @@
 maltaF('io.js')
+
 maltaF('PollManager.js')
 
 importScripts('utils.js');
@@ -52,7 +53,6 @@ ww.onmessage = function (data) {
         case 'setRestToken':
             PollManager.setRestToken(payload.token);
             break;
-
     }
 }
 self.onerror = function (e) {

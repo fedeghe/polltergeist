@@ -1,9 +1,9 @@
 var Polltergeist = (function () {
     var instance;
     /*
-    [Malta] Polltergeist.js
+    [Malta] PolltergeistClient.js
     */
-    var Polltergeist = (function () {
+    var PolltergeistClient = (function () {
         /*
         [Malta] utils.js
         */
@@ -94,12 +94,9 @@ var Polltergeist = (function () {
             }
         })();
     
-    
         var webWorker = new Worker('js/polltergeist/ww.js');
     
-    
-    
-        function Polltergeist(config, handlers) {
+        function DataManager(config, handlers) {
             var self = this;
             this.config = config;
             this.handlers = {
@@ -134,7 +131,7 @@ var Polltergeist = (function () {
                 interval : self.config.pollingInterval
             }));
         }
-        Polltergeist.prototype.handleData = function (data) {
+        DataManager.prototype.handleData = function (data) {
             var handlers = this.handlers,
                 i = -1,
                 l = data.length,
@@ -151,7 +148,7 @@ var Polltergeist = (function () {
             }));
             
         }
-        Polltergeist.prototype.synch = function (channel, request) {
+        DataManager.prototype.synch = function (channel, request) {
             webWorker.postMessage(encode({
                 type: 'synch',
                 channel: channel,
@@ -159,16 +156,16 @@ var Polltergeist = (function () {
                 topics: request.topics
             }));
         }
-        Polltergeist.prototype.io = io;
+        DataManager.prototype.io = io;
     
-        return Polltergeist
+        return DataManager
     })();
     
 
     return {
         getInstance: function (config, handler) {
             if (instance) return instance;
-            instance = new Polltergeist(config, handler)
+            instance = new PolltergeistClient(config, handler)
             return instance;
         }
     };
