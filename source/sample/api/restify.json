@@ -1,52 +1,52 @@
 {
-    "get": [
+    "GET": [
         {
-            "ep": "/persons",
+            "path": "/persons",
             "source": "data/persons.json"
         },
         {
-            "ep": "/person/:id",
+            "path": "/person/:id",
             "source": "data/persons.json",
             "key": "id"
         },
         {
-            "ep": "/cars",
+            "path": "/cars",
             "source": "data/cars.json"
         },
         {
-            "ep": "/car/:id",
+            "path": "/car/:id",
             "source": "data/cars.json",
             "key": "id"
         }
     ],
-    "put": [
+    "PUT": [
         {
-            "ep": "/person/:id",
+            "path": "/person/:id",
             "source": "data/persons.json",
             "key": "id"
         }
     ],
-    "post": [
+    "POST": [
         {
-            "ep": "/persons",
+            "path": "/persons",
             "source": "data/persons.json",
             "key": "id"
         }
     ],
-    "del": [
+    "DELETE": [
         {
-            "ep": "/person/:id",
+            "path": "/person/:id",
             "source": "data/persons.json",
             "key": "id"
         }
     ],
-    "head": [
+    "HEAD": [
         {
-            "ep": "/persons",
+            "path": "/persons",
             "source": "data/persons.json"
         },
         {
-            "ep": "/person/:id",
+            "path": "/person/:id",
             "source": "data/persons.json",
             "key": "id"
         }

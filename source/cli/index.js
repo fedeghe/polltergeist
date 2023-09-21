@@ -4,9 +4,9 @@ var Polltergeist = (function () {
     
 
     return {
-        getInstance: function (config, handler) {
+        getInstance: function (config, handlers) {
             if (instance) return instance;
-            instance = new PolltergeistClient(config, handler)
+            instance = new PolltergeistClient(config, handlers)
             return instance;
         }
     };
