@@ -87,10 +87,16 @@ var Polltergeist = (function () {
                     xhr = setHeaders(xhr, options);
                     xhr.send();
                 },
+                patch: function (where, payload, options) {
+                    var xhr = getXHR(options);
+                    xhr.open('PATCH', where, false);
+                    xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+                    xhr = setHeaders(xhr, options);
+                    xhr.send(JSON.stringify(payload));
+                },
                 connect: function () {},
                 options: function () {},
-                trace: function () {},
-                patch: function () {},
+                trace: function () {}
             }
         })();
     

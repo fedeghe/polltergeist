@@ -671,10 +671,10 @@ malta-less@^1.0.11:
   dependencies:
     less "^3.12.2"
 
-malta-restify@^1.1.9:
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/malta-restify/-/malta-restify-1.1.9.tgz#474b1da01b2a0c99893ae06c79a5b7ed3cefe653"
-  integrity sha512-/BV3ePx7bFlkMzsuDoPy1uEIcQ02/yAIGldAH0GRPgUNyfTnTQrL5xhNFn1fKpSvYdJHO02lb9wChAzAJ8xbRA==
+malta-restify@^1.1.10:
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/malta-restify/-/malta-restify-1.1.10.tgz#ef084c33595afca8b8e612862113e5c9117237ef"
+  integrity sha512-xfCpcJkTrOlAR0Ld5+GvC5hjpYveYJuoqvk7oOqr5CIP3l4tPMA+dGPYQikxfuD5B4kPHZGYBbcO+Yv9eD5zuQ==
   dependencies:
     restify "^11.1.0"
     restify-cors-middleware "^1.1.1"

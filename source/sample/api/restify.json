@@ -26,6 +26,13 @@
             "key": "id"
         }
     ],
+    "PATCH": [
+        {
+            "path": "/person/:id",
+            "source": "data/persons.json",
+            "key": "id"
+        }
+    ],
     "POST": [
         {
             "path": "/persons",

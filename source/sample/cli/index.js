@@ -40,7 +40,7 @@ p.synch('channel2', {
 });
 
 update.addEventListener('click', function () {
-    p.io.put('http://127.0.0.1:3002/person/1', {name: input.value}, {
+    p.io.patch('http://127.0.0.1:3002/person/1', {name: input.value}, {
         on: {
             readystatechange: function () {
                 if (this.readyState == 4 && this.responseText) {
