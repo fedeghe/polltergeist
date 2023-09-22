@@ -87,10 +87,16 @@ var Polltergeist = (function () {
                     xhr = setHeaders(xhr, options);
                     xhr.send();
                 },
+                patch: function (where, payload, options) {
+                    var xhr = getXHR(options);
+                    xhr.open('PATCH', where, false);
+                    xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+                    xhr = setHeaders(xhr, options);
+                    xhr.send(JSON.stringify(payload));
+                },
                 connect: function () {},
                 options: function () {},
-                trace: function () {},
-                patch: function () {},
+                trace: function () {}
             }
         })();
     
@@ -101,7 +107,7 @@ var Polltergeist = (function () {
             this.config = config;
             this.handlers = {
                 // allow the client script to override that
-                ___INVALID_TOKEN___: function (data) {
+                INVALID_TOKEN: function (data) {
                     console.log('Invalid token');
                     console.log(data);
                 } ,
@@ -113,13 +119,15 @@ var Polltergeist = (function () {
                     console.log('Nothing to update');
                 },
             };
+            webWorker.onmessage = function (e) {
+                self.handleData(JSON.parse(e.data))
+            };
+            
             webWorker.postMessage(encode({
                 type: 'setPolltergeistServerUrl',
                 url : self.config.url
             }));
-            webWorker.onmessage = function (e) {
-                self.handleData(JSON.parse(e.data))
-            }
+            
             webWorker.postMessage(encode({
                 type: 'setRestToken',
                 token : self.config.token
@@ -163,9 +171,9 @@ var Polltergeist = (function () {
     
 
     return {
-        getInstance: function (config, handler) {
+        getInstance: function (config, handlers) {
             if (instance) return instance;
-            instance = new PolltergeistClient(config, handler)
+            instance = new PolltergeistClient(config, handlers)
             return instance;
         }
     };

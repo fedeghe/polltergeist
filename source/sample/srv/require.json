@@ -4,5 +4,6 @@
         "mkdir -p sample/srv"
     ],
     "source/sample/srv/config.json": "sample/srv -options=placeholderMode:\"func\" -vars=source/vars.json",
+    "source/sample/srv/script.js": "sample/srv -options=placeholderMode:\"func\" -vars=source/vars.json",
     "source/srv/index.js": "sample/srv -options=placeholderMode:\"func\" -vars=source/vars.json"
 }

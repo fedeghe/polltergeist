@@ -9,18 +9,16 @@
     "license": "MIT",
     "scripts": {
         "buildev": "malta source/buildev.json",
-        "start:server": "node sample/srv/index.js"
+        "start:server": "node sample/srv/script.js"
     },
     "devDependencies": {
         "malta": "^4.1.38",
-        "malta-apollo-srv": "^1.0.18",
         "malta-browser-refresh": "^1.2.9",
         "malta-dev-srv": "^1.1.8",
         "malta-header-comment": "^1.0.10",
-        "malta-js-toolkit": "^1.0.15",
         "malta-js-uglify": "^1.0.13",
         "malta-less": "^1.0.11",
-        "malta-restify": "^1.1.9"
+        "malta-restify": "^1.1.10"
     },
     "dependencies": {
         "body-parser": "^1.19.0",

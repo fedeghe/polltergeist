@@ -1,4 +1,4 @@
 node_modules
 .printVersion
-sample
 .buildNum.json
+/sample
