@@ -6,27 +6,20 @@ const digest = json =>
     xxhashjs.h64(0xABCD)
     .update(JSON.stringify(json))
     .digest().toString(16),
-
-
     requestHandler = ({body, sender, config}, onErr) => {
         const all = Object.keys(body).reduce((acc, channel) => {
             const {token, topics} = body[channel];
 
             // the channel must be in the config
-            if (
-                channel in config        
-            ) {
+            if ( channel in config ) {
                 // and the token should match
                 // otherwise a special handler will be used 
                 // to let the cli know
-                const tokenValid = token === config[channel].token
+                const tokenValid = token === config[channel].token;
                 
                 return acc.concat(Object.keys(topics).reduce((tAcc, topic) => {
                     // the topic should be listed in the channel config
-                    if (
-                        topic in config[channel].topics
-                    ) {
-                        
+                    if ( topic in config[channel].topics ) {
                         let ep = config[channel].topics[topic].endpoint;
                         const proto = ep.match(/^https.*/) ? https : http,
                             params = config[channel].topics[topic].params,
@@ -42,8 +35,8 @@ const digest = json =>
                                     &&
                                     body[channel].topics[topic].params[param]
                             ).forEach(param => {
-                                ep = ep.replace(`:${param}`, body[channel].topics[topic].params[param])
-                            })
+                                ep = ep.replace(`:${param}`, body[channel].topics[topic].params[param]);
+                            });
 
                             // return a promise that solves in the xhr responseHandler in case of valid token,
                             // or solve straigth with empty payload allowing the cli to be aware
@@ -82,7 +75,7 @@ const digest = json =>
                                                         }
                                                     });
                                                 }
-                                            )
+                                            );
                                         } catch(e) {
                                             reject({
                                                 channel,
@@ -90,7 +83,7 @@ const digest = json =>
                                                 digest: clientDigest,
                                                 payload : {},
                                                 handler: '___NO_UPDATES___'
-                                            })
+                                            });
                                         }
                                     })
                                     :
@@ -101,17 +94,15 @@ const digest = json =>
                                         payload : {},
                                         handler: '___INVALID_TOKEN___'
                                     })
-                            )
+                            );
                         }
                     }
-                    return tAcc
-                }, []))
+                    return tAcc;
+                }, []));
             }
-            return acc
-        }, [])
+            return acc;
+        }, []);
         return Promise.all(all).then(sender);
     };
 
-module.exports = {
-    requestHandler
-}
+module.exports = requestHandler;

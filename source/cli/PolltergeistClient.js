@@ -2,7 +2,7 @@ var PolltergeistClient = (function () {
     maltaF('utils.js')
     maltaF('io.js')
 
-    var webWorker = new Worker('js/polltergeist/ww.js');
+    var webWorker = new Worker('./polltergeist/ww.js');
 
     function DataManager(config, handlers) {
         var self = this;
@@ -19,10 +19,10 @@ var PolltergeistClient = (function () {
             // time the clientDigest needs to be updated
             ___NO_UPDATES___: function (data) {
                 console.log('Nothing to update');
-            },
+            }
         };
         webWorker.onmessage = function (e) {
-            self.handleData(JSON.parse(e.data))
+            self.handleData(JSON.parse(e.data));
         };
         
         webWorker.postMessage(encode({
@@ -57,7 +57,7 @@ var PolltergeistClient = (function () {
             data: data
         }));
         
-    }
+    };
     DataManager.prototype.synch = function (channel, request) {
         webWorker.postMessage(encode({
             type: 'synch',
@@ -65,8 +65,8 @@ var PolltergeistClient = (function () {
             token: request.token,
             topics: request.topics
         }));
-    }
+    };
     DataManager.prototype.io = io;
 
-    return DataManager
+    return DataManager;
 })();

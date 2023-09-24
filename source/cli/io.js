@@ -25,8 +25,8 @@ var io = (function () {
     function setHeaders(xhr, options) {
         if (options && 'headers' in options) {
             for (var k in options.headers) {
-                if (options.headers.hasOwnProperty(k))
-                    xhr.setRequestHeaders(k, options.headers[i])
+                options.headers.hasOwnProperty(k)
+                && xhr.setRequestHeaders(k, options.headers[i]);
             }
         }
         return xhr;
@@ -76,5 +76,5 @@ var io = (function () {
         connect: function () {},
         options: function () {},
         trace: function () {}
-    }
+    };
 })();

@@ -1,0 +1,11 @@
+{
+    "EXE": [
+        "rm -rf dist sample",
+        "mkdir -p dist/cli/js/polltergeist dist/srv"
+    ],
+    "#source/cli/index.js": "dist/cli -plugins=malta-millijs -options=placeholderMode:\"func\" -vars=source/vars.json",
+    "#source/cli/ww.js": "dist/cli -plugins=malta-millijs -options=placeholderMode:\"func\" -vars=source/vars.json",
+    "#source/cli/utils.js": "dist/cli -plugins=malta-millijs -options=placeholderMode:\"func\" -vars=source/vars.json",
+    "#source/srv/index.js": "dist/srv -plugins=malta-millijs -options=placeholderMode:\"func\" -vars=source/vars.json",
+    "#source/index.js": "dist"
+}

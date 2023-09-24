@@ -10,7 +10,7 @@ var ww = self,
 
 function poll() {
     if (!PolltergeistServerUrl) {
-        clearInterval(loop)
+        clearInterval(loop);
         throw '[ERROR] No Polltergeist server url set\npass it as `{url:"<url here>" }`\nas first parameter calling `Polltergeist.getInstance`';
     }
     var polls = PollManager.getAll();
@@ -54,8 +54,8 @@ ww.onmessage = function (data) {
             PollManager.setRestToken(payload.token);
             break;
     }
-}
+};
 self.onerror = function (e) {
-    console.log('Error')
-    console.log(e)
-}
+    console.log('Error');
+    console.log(e);
+};

@@ -6,8 +6,9 @@ var Polltergeist = (function () {
     return {
         getInstance: function (config, handlers) {
             if (instance) return instance;
-            instance = new PolltergeistClient(config, handlers)
+            instance = new PolltergeistClient(config, handlers);
             return instance;
         }
     };
 })();
+(typeof exports === 'object') && (module.exports = Polltergeist);

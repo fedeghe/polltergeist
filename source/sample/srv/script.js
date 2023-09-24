@@ -10,7 +10,7 @@ const config = require('./config.json'),
     bodyParser = require("body-parser"),
     port = maltaV('server.port'),
     app = express(),
-    PolltergeistServer = require('./index')
+    PolltergeistServerHandler = require('./index')
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -21,7 +21,7 @@ const handleRequest = (req, res) => {
     const { body } = req,
         sender = r => res.send(JSON.stringify(r)).end();
 
-    PolltergeistServer.requestHandler({body, sender, config, onErr})
+    PolltergeistServerHandler({body, sender, config, onErr})
         .then(r => {
             // Shut up
             // console.log({r})

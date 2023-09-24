@@ -4,8 +4,10 @@
         "mkdir -p dist/cli/js/polltergeist dist/srv sample"
     ],
     "source/cli/index.js": "dist/cli -options=placeholderMode:\"func\" -vars=source/vars.json",
-    "source/cli/ww.js": "dist/cli/js/polltergeist -options=placeholderMode:\"func\" -vars=source/vars.json",
+    "source/cli/ww.js": "dist/cli -options=placeholderMode:\"func\" -vars=source/vars.json",
+    "source/cli/utils.js": "dist/cli -options=placeholderMode:\"func\" -vars=source/vars.json",
     "source/srv/index.js": "dist/srv -options=placeholderMode:\"func\" -vars=source/vars.json",
+    "source/index.js": "dist",
     "source/docs/README.md": ". -options=placeholderMode:\"func\"",
     "source/docs/LICENSE": ". -options=placeholderMode:\"func\"",
     "source/sample/cli/require.json": true,

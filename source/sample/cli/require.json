@@ -1,13 +1,13 @@
 {
     "EXE": [
         "rm -rf sample/cli",
-        "mkdir -p sample/cli/media sample/cli/js/polltergeist sample/cli/css",
+        "mkdir -p sample/cli/media sample/cli/polltergeist sample/cli/css",
         "cp source/sample/cli/media/*.jpg sample/cli/media/"
     ],
     "source/sample/cli/style.less": "sample/cli/css -plugins=malta-less -options=placeholderMode:\"func\"",
     "source/sample/cli/index.html": "sample/cli -plugins=malta-browser-refresh[files:\"relative\"]...malta-dev-srv[folder:\"sample/cli\"] -options=placeholderMode:\"func\"",
-    "source/sample/cli/index.js": "sample/cli/js -options=placeholderMode:\"func\" -vars=source/vars.json",
-    "source/cli/index.js": "sample/cli/js/polltergeist -options=placeholderMode:\"func\"",
-    "source/cli/ww.js": "sample/cli/js/polltergeist -options=placeholderMode:\"func\" -vars=source/vars.json",
-    "source/cli/utils.js": "sample/cli/js/polltergeist -options=placeholderMode:\"func\""
+    "source/sample/cli/index.js": "sample/cli -options=placeholderMode:\"func\" -vars=source/vars.json",
+    "source/cli/index.js": "sample/cli/polltergeist -options=placeholderMode:\"func\"",
+    "source/cli/ww.js": "sample/cli/polltergeist -options=placeholderMode:\"func\" -vars=source/vars.json",
+    "source/cli/utils.js": "sample/cli/polltergeist -options=placeholderMode:\"func\""
 }

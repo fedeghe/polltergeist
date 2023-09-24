@@ -41,5 +41,104 @@ Limitations (TODOS)... at least those I can see
 
 
 ---
+---
+---
+### How to integrate in your project
 
-༺ ᚗᚌ ༻
+![wtf](https://github.com/fedeghe/polltergeist/blob/master/source/docs/polltergeist.png?raw=true)
+
+In the following discussion I'll have to make some assumptions:
+
+1) You can run a node server (express, hapi, meteor, ...whatever) which allows to handle **POST** requests on a certain port
+
+2) You can run one rest server, allowing crud operations on your data-layer through endpoints  
+
+3) Clients need to be allowed (cors) to hit #1.  
+
+
+> In the sample runnable here with `yarn buildev` + `yarn start:server` #1 is based on express and #2 is a [bundling plugin](https://www.npmjs.com/package/malta-restify) I wrote some years ago, based on [restify](https://www.npmjs.com/package/restify), but you can obviously use whatever allows #1 and #2.
+
+## ONE #1  
+`polltergeist` import the server part, the one you need to integrate on your server (here for simplicity I assume _express_). More specifically import one single function, a request handler getting requestes from the client worker:  
+<details>
+<summary>simple server side example</summary>
+
+``` js  
+const config = require('./config.json'),
+    express = require('express'),
+    cors = require('cors'),
+    bodyParser = require("body-parser"),
+    port = 5034,
+    app = express(),
+    PolltergeistServerHandler = require('polltergeist'),
+    onErr = console.error;
+
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+const handleRequest = (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    const { body } = req,
+        sender = r => res.send(
+          JSON.stringify(r)
+        ).end();
+
+    PolltergeistServerHandler({
+        body, sender, config, onErr
+    }).then(r => {/* Shut up */});
+};
+// free to use any path here
+// client should anyway be in synch
+app.post('/', handleRequest);
+app.listen(
+    port,
+    () => log(`Example app listening on port ${port}`)
+);
+```
+</details>
+
+the only unclear thing here is that `config`
+
+<details>
+<summary>but a look at the used content in the example should clarify:</summary>
+
+``` js  
+{
+    "channel1": {
+        "token": "AAABBB111222",
+        "topics": {
+            "persons": {
+                "endpoint": "http://127.0.0.1:3002/person/:id",
+                "params": [
+                    "id"
+                ]
+            }
+        }
+    },
+    "channel2": {
+        "token": "CCCDDD333444",
+        "topics": {
+            "cars": {
+                "endpoint": "http://127.0.0.1:3002/car/:id",
+                "params": [
+                    "id"
+                ]
+            }
+        }
+    }
+}
+```
+</details>
+
+## TWO #2  
+Should be clear what this rest server is resppnsible for right? 
+
+## THREE #3  
+wip
+
+---
+
+<div style="text-align:center">༺ ᚗᚌ ༻</div>
+
+

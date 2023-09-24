@@ -19,9 +19,9 @@ var PollManager = (function () {
             }
         },
         updateDigests: function (d){
-            var digest = JSON.parse(d.data)
+            var digest = JSON.parse(d.data);
             for (var i = 0, l = digest.data.length, dgst; i < l; i++) {
-                dgst = digest.data[i]
+                dgst = digest.data[i];
                 polls[dgst.channel].topics[dgst.topic].digest = dgst.digest;
             }
         }, 
