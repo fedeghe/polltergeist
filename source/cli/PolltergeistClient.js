@@ -3,7 +3,7 @@ var PolltergeistClient = (function () {
     maltaF('io.js')
 
     var webWorker = new Worker('./polltergeist/ww.js');
-
+    function post(o){ webWorker.postMessage(encode(o)); }
     function DataManager(config, handlers) {
         var self = this;
         this.config = config;
@@ -22,49 +22,36 @@ var PolltergeistClient = (function () {
             }
         };
         webWorker.onmessage = function (e) {
-            self.handleData(JSON.parse(e.data));
+            self.handleData(decodeData(e));
         };
         
-        webWorker.postMessage(encode({
-            type: 'setPolltergeistServerUrl',
-            url : self.config.url
-        }));
+        post({type: 'setPolltergeistServerUrl', url : self.config.url});
         
-        webWorker.postMessage(encode({
-            type: 'setRestToken',
-            token : self.config.token
-        })); 
+        post({ type: 'setRestToken', token : self.config.token}); 
 
         self.config.pollingInterval
-        && webWorker.postMessage(encode({
-            type: 'setPollingInterval',
-            interval : self.config.pollingInterval
-        }));
+        && post({ type: 'setPollingInterval', interval : self.config.pollingInterval});
     }
     DataManager.prototype.handleData = function (data) {
-        var handlers = this.handlers,
-            i = -1,
+        var i = -1,
             l = data.length,
             handlerName;
         while (++i < l) {
             handlerName = data[i].handler;
             handlerName !== '___NO_UPDATES___'
-                && handlerName in handlers
-                && handlers[handlerName](data[i]);
+                && handlerName in this.handlers
+                && this.handlers[handlerName](data[i]);
         }
-        webWorker.postMessage(encode({
-            type: 'updateClientDigests',
-            data: data
-        }));
+        post({ type: 'updateClientDigests', data: data });
         
     };
     DataManager.prototype.synch = function (channel, request) {
-        webWorker.postMessage(encode({
+        post({
             type: 'synch',
             channel: channel,
             token: request.token,
             topics: request.topics
-        }));
+        });
     };
     DataManager.prototype.io = io;
 

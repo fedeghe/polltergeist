@@ -1,5 +1,6 @@
 // IO
 var io = (function () {
+    function beJson(x){x.setRequestHeader('Content-type', 'application/json; charset=utf-8');}
     function getXHR(options) {
         var xhr = new XMLHttpRequest();
         if (options && 'on' in options) {
@@ -35,14 +36,14 @@ var io = (function () {
         get: function (what, options) {
             var xhr = getXHR(options);
             xhr.open('GET', what, false);
-            xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+            beJson(xhr);
             xhr = setHeaders(xhr, options);
             xhr.send();
         },
         post: function (where, payload, options) {
             var xhr = getXHR(options);
             xhr.open('POST', where, false);
-            xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+            beJson(xhr);
             xhr = setHeaders(xhr, options);
             xhr.send(JSON.stringify(payload));
         },
@@ -55,21 +56,21 @@ var io = (function () {
         put: function (where, payload, options) {
             var xhr = getXHR(options);
             xhr.open('PUT', where, false);
-            xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+            beJson(xhr);
             xhr = setHeaders(xhr, options);
             xhr.send(JSON.stringify(payload));
         },
         head: function (what, options) {
             var xhr = getXHR(options);
             xhr.open('HEAD', what, false);
-            xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+            beJson(xhr);
             xhr = setHeaders(xhr, options);
             xhr.send();
         },
         patch: function (where, payload, options) {
             var xhr = getXHR(options);
             xhr.open('PATCH', where, false);
-            xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+            beJson(xhr);
             xhr = setHeaders(xhr, options);
             xhr.send(JSON.stringify(payload));
         },
