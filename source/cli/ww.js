@@ -1,8 +1,6 @@
 maltaF('io.js')
-
 maltaF('PollManager.js')
-
-importScripts('utils.js');
+maltaF('utils.js')
 
 var ww = self,
     PolltergeistServerUrl = null,

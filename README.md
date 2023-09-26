@@ -132,10 +132,10 @@ the only unclear thing here is that `config`
 </details>
 
 ## TWO #2  
-Should be clear what this rest server is resppnsible for right? 
+Should be clear what this rest server is responsible for right? 
 
 ## THREE #3  
-wip
+At some point I'll document that decently. To know more please run `yarn buildev` + `yarn start:server` and take a look at the `sample` folder content.
 
 ---
 
