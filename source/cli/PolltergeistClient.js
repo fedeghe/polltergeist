@@ -27,12 +27,13 @@ var PolltergeistClient = (function () {
         
         post({type: 'setPolltergeistServerUrl', url : self.config.url});
         
-        post({ type: 'setRestToken', token : self.config.token}); 
+        'token' in self.config && post({ type: 'setRestToken', token : self.config.token}); 
 
-        self.config.pollingInterval
-        && post({ type: 'setPollingInterval', interval : self.config.pollingInterval});
+        // self.config.pollingInterval
+        // && post({ type: 'setPollingInterval', interval : self.config.pollingInterval});
     }
     DataManager.prototype.handleData = function (data) {
+        console.log({handleData: data, time: +new Date})
         var i = -1,
             l = data.length,
             handlerName;
@@ -45,12 +46,19 @@ var PolltergeistClient = (function () {
         post({ type: 'updateClientDigests', data: data });
         
     };
-    DataManager.prototype.synch = function (channel, request) {
+    DataManager.prototype.synch = function (channel, config) {
         post({
             type: 'synch',
-            channel: channel,
-            token: request.token,
-            topics: request.topics
+            channel:channel,
+            token: config.token,
+            topics: config.topics
+        });
+
+        // config.pollingInterval
+        post({
+            type: 'setPollingInterval',
+            pollingInterval : config.pollingInterval,
+            channel: channel
         });
     };
     DataManager.prototype.io = io;
