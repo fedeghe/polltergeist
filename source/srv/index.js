@@ -6,7 +6,7 @@ const digest = json =>
     xxhashjs.h64(0xABCD)
     .update(JSON.stringify(json))
     .digest().toString(16),
-    requestHandler = ({body, sender, config}, onErr) => {
+    requestHandler = ({body, sender, config, onErr}) => {
         const all = Object.keys(body).reduce((acc, channel) => {
             const {token, topics} = body[channel];
 
@@ -46,9 +46,9 @@ const digest = json =>
                                         try {
                                             proto.get(
                                                 ep,
-                                                {headers: {
+                                                body[channel].restToken ? {headers: {
                                                     Authorization: body[channel].restToken
-                                                }},
+                                                }} : {},
                                                 xres => {
                                                     let rawData = '';
                                                     xres.on('data', (chunk) => { rawData += chunk; });

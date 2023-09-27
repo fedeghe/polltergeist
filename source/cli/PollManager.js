@@ -30,6 +30,9 @@ var PollManager = (function () {
         setRestToken: function (token) {
             restToken = token;
         },
-        getAll : function () {return polls;}
+        getAll : function () {return polls;},
+        getAllByChannel : function (channel) {
+            return {[channel]: polls[channel]};
+        }
     }; 
 })();
