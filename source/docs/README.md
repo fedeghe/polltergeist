@@ -135,8 +135,8 @@ the only unclear thing here is that `config`
 Should be clear what this rest server is responsible for right? 
 
 ## THREE #3  
-The client setting is rather simple assuming we have a clear plan about **what** to keep in synch and most importantly the polling frequency needed.  
-For example if we need to check the status of two types of entities (retrievable throught two diffent endpoints) with the same frequency then we will need to set two _topics_ in one _channel_ : 
+The client setting is rather simple assuming we have a clear plan about **what** to keep in synch and most importantly the polling _period_ needed.  
+For example if we need to check the status of two types of entities (retrievable throught two diffent endpoints) with the same _period_ then we will need to set two _topics_ in one _channel_ : 
 
 ``` js
 var order = document.querySelector(...),
@@ -169,19 +169,20 @@ clientInstance.synch('channel1', {
 });
 ```
 
-note that here the client does not really know anything about how those requests will be resolvedbut the machine where _polltergeist server_ runs does, and looking at that server config there's a clear mapping:  
+note that here the client does not really know anything about how those requests will be handled and resolved from the _polltergeist server_ , but looking at that server config there's a clear mapping based on topics keys:  
 
 ``` js 
-{
+const baseUrl = "http://yourRest.data"
+export default {
     "channel1": {
         "token": "AAABBB111222",
         "topics": {
             "order": {
-                "endpoint": "http://yourRest.data/order/:id",
+                "endpoint": `${baserul}/order/:id`,
                 "params": [ "id" ]
             },
             "product": {
-                "endpoint": "http://yourRest.data/product/:id",
+                "endpoint": `${baserul}/product/:id`,
                 "params": [ "id" ]
             }
         }
@@ -189,9 +190,9 @@ note that here the client does not really know anything about how those requests
 }
 ```
 
-What is important is that each _channel_ can bring one polling interval setting and define what exactly needs to be updated at that specific frequency.  
+Looking at the client config is clear that each _channel_ can bring one polling interval setting and define what exactly needs to be updated at that specific period.  
 
-This means that in case, together with _channel1_ (which has a quite high set frequency) we want to synch the status of the user account every minute, we need to add another _channel_ which will contain that new topic and maybe also others that later we realize we can add to that frequency.
+This means that in case, together with _channel1_ (which is set with a quite short _period_) we want for example to synch the status of the user account every minute, we need to add another _channel_ containing the right _period_ and one topic (or more ) containing a reference to the _handler_ function and the _params_.
 
 ---
 
