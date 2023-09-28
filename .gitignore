@@ -2,3 +2,4 @@ node_modules
 .printVersion
 .buildNum.json
 /sample
+solvepolls.js
