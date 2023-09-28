@@ -3,6 +3,7 @@ var PollManager = (function () {
         restToken = '';
     return {
         add: function (channel, token, topics) {
+            console.log({add: topics})
             // if the channel does not exists, create it, with no topics
             if (!(channel in polls)) polls[channel] = {
                 restToken: restToken,
@@ -11,13 +12,13 @@ var PollManager = (function () {
             };
             // fill it with given topics
             for (var topic in topics) {
-                if (!(topic in polls[channel].topics)) {
+                // if (!(topic in polls[channel].topics)) {
                     polls[channel].topics[topic] = {
                         params: topics[topic].params,
                         handler: topics[topic].handler,
                         digest: ''
                     };
-                }
+                // }
             }
         },
         updateDigests: function (d) {

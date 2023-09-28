@@ -1,4 +1,4 @@
-// (function (){
+(function (){
     console.log("༺ polltergeist maltaV('PACKAGE.version') ༻");
     console.log('powered by ᚗᚌ');
 
@@ -6,6 +6,7 @@
         car = document.getElementById('car'),
         input = document.getElementById('input'),
         update = document.getElementById('update'),
+        carSelect = document.getElementById('carSelect'),
         handlers = {
             handler1: function(data) {
                 person.innerHTML = input.value = data.payload.name
@@ -37,18 +38,22 @@
             },
         }
     });
-
+    var selectedCarId = 1;
     p.synch('channel2', {
         token: 'CCCDDD333444',
         pollingInterval: 2e3,
         topics: {
             cars: {
-                params: {id: 1},
+                params: {id: function (){return selectedCarId;}},
                 handler: 'handler2'
             }
-        }
+        },
+        live: true
     });
 
+    carSelect.addEventListener('change', function (e) {
+        selectedCarId = e.target.value
+    });
     update.addEventListener('click', function () {
         p.io.patch('http://127.0.0.1:3002/person/1', {name: input.value}, {
             on: {
@@ -61,4 +66,4 @@
         })
     }, false);
 
-// })();
+})();
