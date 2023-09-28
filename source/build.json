@@ -6,5 +6,7 @@
     "#source/cli/index.js": "dist/cli -plugins=malta-millijs -options=placeholderMode:\"func\" -vars=source/vars.json",
     "#source/cli/ww.js": "dist/cli -plugins=malta-millijs -options=placeholderMode:\"func\" -vars=source/vars.json",
     "#source/srv/index.js": "dist/srv -plugins=malta-millijs -options=placeholderMode:\"func\" -vars=source/vars.json",
-    "#source/index.js": "dist"
+    "#source/index.js": "dist",
+    "source/docs/README.md": ". -options=placeholderMode:\"func\"",
+    "source/docs/LICENSE": ". -options=placeholderMode:\"func\""
 }

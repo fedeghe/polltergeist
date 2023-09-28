@@ -135,7 +135,63 @@ the only unclear thing here is that `config`
 Should be clear what this rest server is responsible for right? 
 
 ## THREE #3  
-At some point I'll document that decently. To know more please run `yarn buildev` + `yarn start:server` and take a look at the `sample` folder content.
+The client setting is rather simple assuming we have a clear plan about **what** to keep in synch and most importantly the polling frequency needed.  
+For example if we need to check the status of two types of entities (retrievable throught two diffent endpoints) with the same frequency then we will need to set two _topics_ in one _channel_ : 
+
+``` js
+var order = document.querySelector(...),
+    productAvailability = document.querySelector(...),
+    handlers = {
+        handler1: function(data) {
+            order.className = data.payload.status ? 'healthy' : 'unhealthy'
+        },
+        handler2: function(data) {
+            productAvailability.className = data.payload.availability ? 'available' : 'unavailable'
+        }
+    },
+    clientInstance = Polltergeist.getInstance(
+        { url: "https://whereYouRunPolltergeistServer" },
+        handlers
+    );
+clientInstance.synch('channel1', {
+    token: 'AAABBB111222',
+    pollingInterval: 1E2,
+    topics: {
+        order: {
+            params: {id: 23423},
+            handler: 'handler1'
+        },
+      	product: {
+            params: {id: 'A-234234'},
+            handler: 'handler2'
+        },
+    }
+});
+```
+
+note that here the client does not really know anything about how those requests will be resolvedbut the machine where _polltergeist server_ runs does, and looking at that server config there's a clear mapping:  
+
+``` js 
+{
+    "channel1": {
+        "token": "AAABBB111222",
+        "topics": {
+            "order": {
+                "endpoint": "http://yourRest.data/order/:id",
+                "params": [ "id" ]
+            },
+            "product": {
+                "endpoint": "http://yourRest.data/product/:id",
+                "params": [ "id" ]
+            }
+        }
+    },
+}
+```
+
+What is important is that each _channel_ can bring one polling interval setting and define what exactly needs to be updated at that specific frequency.  
+
+This means that in case, together with _channel1_ (which has a quite high set frequency) we want to synch the status of the user account every minute, we need to add another _channel_ which will contain that new topic and maybe also others that later we realize we can add to that frequency.
 
 ---
 
