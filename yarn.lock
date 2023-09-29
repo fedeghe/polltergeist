@@ -676,10 +676,10 @@ malta-millijs@^1.0.5:
   resolved "https://registry.yarnpkg.com/malta-millijs/-/malta-millijs-1.0.5.tgz#ce98ca3034bd70577adee1d01e07f92ec6c16252"
   integrity sha512-hVj28USat0scHxUosf4fJCrAPB1Wi79ogOyaWpEyDmGIabJwr5W0kM0CAoOXqhB2C9XYyWfYv23wx0fkWmIhhA==
 
-malta-restify@^1.1.10:
-  version "1.1.10"
-  resolved "https://registry.yarnpkg.com/malta-restify/-/malta-restify-1.1.10.tgz#ef084c33595afca8b8e612862113e5c9117237ef"
-  integrity sha512-xfCpcJkTrOlAR0Ld5+GvC5hjpYveYJuoqvk7oOqr5CIP3l4tPMA+dGPYQikxfuD5B4kPHZGYBbcO+Yv9eD5zuQ==
+malta-restify@^1.1.11:
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/malta-restify/-/malta-restify-1.1.11.tgz#b696addf1bfd7dde938e65a06b757600a8f6f51f"
+  integrity sha512-nCkdb6fcorhEXIQNPodA2xx81/b+KpKAs+9GZxHNJKcek7URp3A+nycq2hUyVKVbZ2GI8agWKMcJkT21fRRkbg==
   dependencies:
     restify "^11.1.0"
     restify-cors-middleware "^1.1.1"
