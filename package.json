@@ -1,6 +1,6 @@
 {
     "name": "polltergeist",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "Client poll master",
     "main": "dist",
     "repository": "https://github.com/fedeghe/polltergeist.git",
