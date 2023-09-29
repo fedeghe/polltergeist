@@ -7,6 +7,7 @@ const digest = json =>
     .update(JSON.stringify(json))
     .digest().toString(16),
     requestHandler = ({body, sender, config, onErr}) => {
+        //despite there willl be always only one channel on each call
         const all = Object.keys(body).reduce((acc, channel) => {
             const {token, topics} = body[channel];
 

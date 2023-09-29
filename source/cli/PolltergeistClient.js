@@ -4,6 +4,22 @@ var PolltergeistClient = (function () {
 
     var webWorker = new Worker('./polltergeist/ww.js');
     function post(o){ webWorker.postMessage(encode(o)); }
+    function solveTopics(t){
+        return Object.entries(t).reduce(
+            (acci, [j, topic]) => {
+                acci[j] = {
+                    handler: topic.handler,
+                    params: Object.entries(topic.params).reduce(
+                        (accii, [param, val]) => {
+                            accii[param] = typeof(val) === 'function' ? val() : val
+                            return accii
+                        }, {}
+                    )
+                }
+                return acci;
+            }, {}
+        );
+    }
     function DataManager(config, handlers) {
         var self = this;
         this.config = config;
@@ -28,12 +44,9 @@ var PolltergeistClient = (function () {
         post({type: 'setPolltergeistServerUrl', url : self.config.url});
         
         'token' in self.config && post({ type: 'setRestToken', token : self.config.token}); 
-
-        // self.config.pollingInterval
-        // && post({ type: 'setPollingInterval', interval : self.config.pollingInterval});
     }
     DataManager.prototype.handleData = function (data) {
-        console.log({handleData: data, time: +new Date})
+        // console.log({handleData: data, time: +new Date})
         var i = -1,
             l = data.length,
             handlerName;
@@ -47,19 +60,25 @@ var PolltergeistClient = (function () {
         
     };
     DataManager.prototype.synch = function (channel, config) {
-        post({
-            type: 'synch',
-            channel:channel,
-            token: config.token,
-            topics: config.topics
-        });
-
-        // config.pollingInterval
+        function start() {
+            var topics = config.live ? solveTopics(config.topics) : config.topics;
+            
+            post({
+                type: 'synch',
+                channel:channel,
+                token: config.token,
+                topics: topics
+            });
+        }
+        start();
         post({
             type: 'setPollingInterval',
             pollingInterval : config.pollingInterval,
             channel: channel
         });
+        if (config.live) {
+            setInterval(start, config.pollingInterval);
+        }
     };
     DataManager.prototype.io = io;
 
