@@ -168,8 +168,27 @@ clientInstance.synch('channel1', {
     }
 });
 ```
+here params can even contain functions and in that case the parameter can be dynamic:
+``` js 
+function defaultTarget() {
+    return document.getElementById('trg').value
+}
+clientInstance.synch('channel1', {
+    token: 'AAABBB111222',
+    pollingInterval: 1E2,
+    topics: {
+        order: {
+            params: {id: defaultTarget},
+            handler: 'handler1'
+        },
+        // ...
+    },
+    live: true //this is needed in that case
+});
+```
+but in that case we need to add `live: true`.  
 
-note that here the client does not really know anything about how those requests will be handled and resolved from the _polltergeist server_ , but looking at that server config there's a clear mapping based on topics keys:  
+Note that here the client does not really know anything about how those requests will be handled and resolved from the _polltergeist server_ , but looking at that server config there's a clear mapping based on topics keys:  
 
 ``` js 
 const baseUrl = "http://yourRest.data"
