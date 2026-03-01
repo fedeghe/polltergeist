@@ -43,7 +43,7 @@ const digest = json =>
                             // or solve straigth with empty payload allowing the cli to be aware
                             tAcc.push(
                                 tokenValid ?        
-                                    new Promise((solve, reject) => {
+                                    new Promise((solve) => {
                                         try {
                                             proto.get(
                                                 ep,
@@ -55,6 +55,29 @@ const digest = json =>
                                                     xres.on('data', (chunk) => { rawData += chunk; });
                                                     xres.on('end', () => {
                                                         try {
+                                                            if (xres.statusCode >= 400) {
+                                                                onErr(`Endpoint ${ep} responded with status ${xres.statusCode}`);
+                                                                solve({
+                                                                    channel,
+                                                                    topic,
+                                                                    digest: clientDigest,
+                                                                    payload: {},
+                                                                    handler: '___NO_UPDATES___'
+                                                                });
+                                                                return;
+                                                            }
+
+                                                            if (!rawData) {
+                                                                solve({
+                                                                    channel,
+                                                                    topic,
+                                                                    digest: clientDigest,
+                                                                    payload: {},
+                                                                    handler: '___NO_UPDATES___'
+                                                                });
+                                                                return;
+                                                            }
+                                                            
                                                             const parsedData = JSON.parse(rawData),
                                                                 dataDigest = digest(parsedData);
                                                             
@@ -73,12 +96,20 @@ const digest = json =>
                                                             });
                                                         } catch (e) {
                                                             onErr(e.message);
+                                                            solve({
+                                                                channel,
+                                                                topic,
+                                                                digest: clientDigest,
+                                                                payload : {},
+                                                                handler: '___NO_UPDATES___'
+                                                            });
                                                         }
                                                     });
                                                 }
                                             );
                                         } catch(e) {
-                                            reject({
+                                            onErr(e.message);
+                                            solve({
                                                 channel,
                                                 topic,
                                                 digest: clientDigest,
@@ -88,12 +119,12 @@ const digest = json =>
                                         }
                                     })
                                     :
-                                    Promise.solve({
+                                    Promise.resolve({
                                         channel,
                                         topic,
                                         digest: clientDigest,
                                         payload : {},
-                                        handler: '___INVALID_TOKEN___'
+                                        handler: 'INVALID_TOKEN'
                                     })
                             );
                         }

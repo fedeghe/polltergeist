@@ -26,6 +26,10 @@ const handleRequest = (req, res) => {
             // Shut up
             // console.log({r})
         })
+        .catch(e => {
+            onErr(e && e.message ? e.message : e);
+            sender([]);
+        });
     req.on('error', e => {
         log('ERROR: ' + e.message);
     });

@@ -7,9 +7,25 @@
         input = document.getElementById('input'),
         update = document.getElementById('update'),
         carSelect = document.getElementById('carSelect'),
+        selectedCarId = 1,
+        patchPerson = function (payload) {
+            p.io.patch('http://127.0.0.1:3002/person/1', payload, {
+                on: {
+                    readystatechange: function () {
+                        if (this.readyState === 4 && this.status >= 400) {
+                            console.log('person patch failed', this.status, this.responseText);
+                        }
+                    }
+                }
+            });
+        },
         handlers = {
             handler1: function(data) {
-                person.innerHTML = input.value = data.payload.name
+                person.innerHTML = input.value = data.payload.name;
+                if ('selectedCarId' in data.payload) {
+                    selectedCarId = `${data.payload.selectedCarId}`;
+                    carSelect.value = selectedCarId;
+                }
             },
             handler2: function(data) {
                 car.innerHTML = data.payload.model
@@ -38,7 +54,6 @@
             },
         }
     });
-    var selectedCarId = 1;
     p.synch('channel2', {
         token: 'CCCDDD333444',
         pollingInterval: 2e3,
@@ -52,18 +67,11 @@
     });
 
     carSelect.addEventListener('change', function (e) {
-        selectedCarId = e.target.value
+        selectedCarId = e.target.value;
+        patchPerson({selectedCarId: +selectedCarId});
     });
     update.addEventListener('click', function () {
-        p.io.patch('http://127.0.0.1:3002/person/1', {name: input.value}, {
-            on: {
-                readystatechange: function () {
-                    if (this.readyState == 4 && this.responseText) {
-                        console.log('done', this)
-                    }
-                }
-            }
-        })
+        patchPerson({name: input.value});
     }, false);
 
 })();
