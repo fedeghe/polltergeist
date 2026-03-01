@@ -197,11 +197,11 @@ export default {
         "token": "AAABBB111222",
         "topics": {
             "order": {
-                "endpoint": `${baserul}/order/:id`,
+                "endpoint": `${baseUrl}/order/:id`,
                 "params": [ "id" ]
             },
             "product": {
-                "endpoint": `${baserul}/product/:id`,
+                "endpoint": `${baseUrl}/product/:id`,
                 "params": [ "id" ]
             }
         }
