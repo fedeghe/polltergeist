@@ -1088,7 +1088,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"malta-browser-refresh@npm:^1.2.9":
+"malta-browser-refresh@npm:^1.2.16":
   version: 1.2.16
   resolution: "malta-browser-refresh@npm:1.2.16"
   dependencies:
@@ -1097,10 +1097,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"malta-dev-srv@npm:^1.1.8":
-  version: 1.1.8
-  resolution: "malta-dev-srv@npm:1.1.8"
-  checksum: 10c0/44b50abf627c522113794ddd09abf4efa17393110f06fab13128016018e312ddc8aa93b7d5fd608fc754a08c5679d23f6ffc887f1e22edcb6677b0edecc5db4a
+"malta-dev-srv@npm:^1.1.9":
+  version: 1.1.9
+  resolution: "malta-dev-srv@npm:1.1.9"
+  checksum: 10c0/7c94daab2a189e8a90cd8b849ed806da2eebc88c8c62b958c1604c7bb418b67c49d21c72f826dffa9ad32dec1f635d462f6e76dc7f47a512b16b7c21b5d08ec8
   languageName: node
   linkType: hard
 
@@ -1147,12 +1147,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"malta@npm:^4.1.38":
-  version: 4.1.38
-  resolution: "malta@npm:4.1.38"
+"malta@npm:^4.1.43":
+  version: 4.1.43
+  resolution: "malta@npm:4.1.43"
   bin:
     malta: src/bin.js
-  checksum: 10c0/000cddc933de1d933c0c2232f5f2b8299471b5c8e4ee070ec612bafeaee952adfb61207728f20937c4cb6a7f2240d64dbb00b7bdd4b5e9cc953885641fb02b95
+  checksum: 10c0/8a601420670f8ed587c064c12d320f3c5aad3e950a9fc1cbf657175f11053129152ce70effe542522871253f185d484581229c29422bc9bc21fd5d75f846ea96
   languageName: node
   linkType: hard
 
@@ -1537,9 +1537,9 @@ __metadata:
     body-parser: "npm:^1.20.2"
     cors: "npm:^2.8.5"
     express: "npm:^4.18.2"
-    malta: "npm:^4.1.38"
-    malta-browser-refresh: "npm:^1.2.9"
-    malta-dev-srv: "npm:^1.1.8"
+    malta: "npm:^4.1.43"
+    malta-browser-refresh: "npm:^1.2.16"
+    malta-dev-srv: "npm:^1.1.9"
     malta-header-comment: "npm:^1.0.10"
     malta-js-uglify: "npm:^1.0.13"
     malta-less: "npm:^1.0.11"
